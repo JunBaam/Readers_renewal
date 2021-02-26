@@ -1,7 +1,8 @@
 import React from 'react'
+import AppLayout from '../components/Layout/AppLayout'
 
 const Home = () => {
-  return <div>안녕넥스트</div>
+  return <AppLayout>gdgd</AppLayout>
 }
 
 export default Home
