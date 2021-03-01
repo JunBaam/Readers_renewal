@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import '../styles/global.css'
 
 // index.js의 부모 컴포넌트 라고생각하면 편함.
 const App = ({ Component }) => {
