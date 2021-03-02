@@ -48,6 +48,7 @@ export const SlideText = styled.div`
     margin: 0;
   }
   & > h5 {
+    font-weight: 500;
     margin: 0;
     margin-bottom: 15px;
   }

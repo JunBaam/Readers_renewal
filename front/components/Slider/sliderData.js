@@ -27,4 +27,18 @@ export default [
     urls:
       'http://image.kyobobook.co.kr/images/book/xlarge/527/x9788953139527.jpg',
   },
+  {
+    title: '네번째사진',
+    category: '네번째 카테고리',
+    contents: '네번째 내용',
+    urls:
+      'http://image.kyobobook.co.kr/images/book/xlarge/527/x9788953139527.jpg',
+  },
+  {
+    title: '네번째사진',
+    category: '네번째 카테고리',
+    contents: '네번째 내용',
+    urls:
+      'http://image.kyobobook.co.kr/images/book/xlarge/527/x9788953139527.jpg',
+  },
 ]
