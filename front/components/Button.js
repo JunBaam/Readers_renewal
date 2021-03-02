@@ -14,10 +14,10 @@ const ButtonWrapper = styled.button`
   text-align: center;
   width: 200px;
   height: 40px;
-
   margin-top: 15px;
 
   :hover {
+    color: white;
     background-color: #ff9e7d;
     transition: all 0.4s ease-in-out;
   }
