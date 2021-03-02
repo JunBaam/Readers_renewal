@@ -7,7 +7,7 @@ const Footer = () => {
     text-align: center;
     background-color: white;
     color: #292929;
-    margin-top: 50px;
+    margin-top: 70px;
   `
 
   return (

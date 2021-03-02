@@ -10,24 +10,26 @@ const PostTitle = styled.div`
 `
 
 const PostCardWrapper = styled.div`
-  padding: 10px;
   cursor: pointer;
+  padding: 10px;
 
   & > img {
     object-fit: fill;
-    width: 175px;
-    height: 160px;
-    border: 1px solid #ffd5b4;
+    width: 160px;
+    height: 140px;
     border-radius: 5px;
   }
-  & > div:hover {
-    text-decoration: underline solid black;
-    transition: all 0.7s ease-in;
+  & > img:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.12);
   }
   & > div h3 {
     margin: 0;
     font-size: 16px;
     font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   & > div h5 {
@@ -35,6 +37,23 @@ const PostCardWrapper = styled.div`
     font-weight: 500;
     font-size: 11px;
     color: #a19f9e;
+  }
+`
+const StarWrapper = styled.span`
+  font-weight: 300;
+  line-height: 5px;
+
+  & > p {
+    display: inline;
+    font-size: 17px;
+    margin-left: 3px;
+  }
+
+  & > span {
+    color: orange;
+    font-weight: bold;
+    padding-top: 50px;
+    font-size: 20px;
   }
 `
 
@@ -45,7 +64,14 @@ const PostCard = () => {
         <PostCardWrapper key={index}>
           <img src={data.urls} alt="" />
           <div>
-            <h3>{data.title}</h3>
+            <h3>
+              {data.title}
+
+              <StarWrapper>
+                <span>🟊</span>
+                <p>{data.rating}</p>
+              </StarWrapper>
+            </h3>
 
             <h5>
               {data.category} | {data.category}

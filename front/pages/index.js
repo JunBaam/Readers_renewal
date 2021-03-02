@@ -5,6 +5,7 @@ import PostCard from '../components/PostCard'
 import Rank from '../components/Rank'
 
 import styled from 'styled-components'
+import Button from '../components/Button'
 
 const HomeTitleWrapper = styled.div`
   display: flex;
@@ -14,6 +15,7 @@ const HomeTitleWrapper = styled.div`
 
   & > div {
     flex: 0 0 60%;
+    margin-left: 10px;
   }
 `
 
@@ -21,17 +23,18 @@ const HomeMidWrapper = styled.div`
   display: flex;
 `
 const PostCardWrapper = styled.div`
-  flex: 0 0 60%;
+  flex: 0 0 62%;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid #ffd5b4;
   justify-content: center;
+  padding-right: 50px;
 `
 const RankWrapper = styled.div`
-  flex: 0 0 40%;
+  flex: 0 0 38%;
   display: flex;
-  flex-wrap: wrap;
-  border: 1px solid #ffd5b4;
+  flex-direction: column;
+  justify-content: right;
+  border-left: 1px solid #ffd5b4;
 `
 
 const Home = () => {
@@ -39,10 +42,12 @@ const Home = () => {
     <AppLayout>
       <Slider />
 
+      {/* Todo: 바꿔야됨 */}
       <HomeTitleWrapper>
         <div>리뷰목록 </div>
         <div>인기 리뷰목록</div>
       </HomeTitleWrapper>
+
       <HomeMidWrapper>
         <PostCardWrapper>
           <PostCard />
