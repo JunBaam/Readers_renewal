@@ -18,6 +18,7 @@ const PostCardWrapper = styled.div`
     width: 160px;
     height: 140px;
     border-radius: 5px;
+    border: 1px solid #ffd5b4;
   }
   & > img:hover {
     transition: all 0.3s ease-in-out;

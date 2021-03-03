@@ -8,6 +8,7 @@ const Footer = () => {
     background-color: white;
     color: #292929;
     margin-top: 70px;
+    font-weight: bold;
   `
 
   return (
