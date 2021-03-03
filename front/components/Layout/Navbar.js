@@ -13,8 +13,8 @@ const NavLayout = styled.div`
     height: 50px;
   }
   & > div {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 700;
     margin-top: 10px;
   }
 `

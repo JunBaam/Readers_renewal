@@ -9,7 +9,7 @@ export const SlideContainer = styled.div`
   overflow: hidden;
   border-radius: 10px;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 30px;
 `
 
 export const SlideActive = styled.div`
