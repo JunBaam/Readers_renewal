@@ -1,21 +1,34 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const ButtonWrapper = styled.button`
-  border: none;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   font-size: 15px;
   font-weight: bold;
   padding: 0.25rem 1rem;
-  color: white;
+
   outline: none;
   cursor: pointer;
+  border: none;
   background-color: #ffd5b4;
+  color: white;
   text-align: center;
-  width: 200px;
+
   height: 40px;
   margin-top: 15px;
+  border-radius: 5px;
 
+  ${props =>
+    props.size === 'large' &&
+    css`
+      width: 334px;
+    `}
+
+  ${props =>
+    props.size === 'mid' &&
+    css`
+      width: 200px;
+    `}
   :hover {
     color: white;
     background-color: #ff9e7d;
@@ -23,8 +36,8 @@ const ButtonWrapper = styled.button`
   }
 `
 
-const Button = props => {
-  return <ButtonWrapper>{props.btnName}</ButtonWrapper>
+function Button({ children, size }) {
+  return <ButtonWrapper size={size}>{children}</ButtonWrapper>
 }
 
 export default Button

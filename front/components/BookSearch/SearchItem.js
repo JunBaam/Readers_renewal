@@ -5,7 +5,10 @@ import { SearchResultCard } from './searchStyles'
 const SearchItem = props => {
   return (
     <SearchResultCard>
-      <img src={props.thumbnail} alt={props.title} />
+      <img
+        src={!props.thumbnail ? 'no_image.jpg' : props.thumbnail}
+        alt={props.title}
+      />
 
       <div>
         <h4>{props.title}</h4>
@@ -14,7 +17,7 @@ const SearchItem = props => {
         </h5>
       </div>
 
-      <Button btnName="더보기 / 리뷰작성 " />
+      <Button size="mid">더보기 / 리뷰작성</Button>
     </SearchResultCard>
   )
 }

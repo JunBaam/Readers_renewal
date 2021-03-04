@@ -36,7 +36,7 @@ const Search = () => {
     const { data } = await kakaoRequest(params)
     if (reset) {
       setBooks(data.documents)
-      console.log(data.documents)
+      console.log('검색결과', data.documents)
     } else {
       setBooks(books.concat(data.documents))
     }

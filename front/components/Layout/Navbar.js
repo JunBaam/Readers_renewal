@@ -34,7 +34,7 @@ const Navbar = () => {
           <div>도서검색 / 후기작성</div>
         </Link>
       </SearchWrapper>
-      <Link href="/userInterface">
+      <Link href="/login">
         <div>로그인 / 회원가입</div>
       </Link>
     </NavLayout>
