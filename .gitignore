@@ -144,3 +144,5 @@ node_modules
 
 # 이미지 
 uploads/
+
+config/
