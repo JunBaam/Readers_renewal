@@ -81,7 +81,7 @@ const PostCard = () => {
         </PostCardWrapper>
       ))}
 
-      <Button btnName={'리뷰 더보기'} />
+      <Button size="mid">리뷰 더보기</Button>
     </>
   )
 }

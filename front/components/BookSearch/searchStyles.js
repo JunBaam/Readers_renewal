@@ -53,7 +53,10 @@ export const SearchResultCard = styled.div`
 
   & > img {
     padding: 5px 5px;
+    width: 130px;
+    height: 185px;
   }
+
   & > div {
     color: #a19f9e;
     width: 220px;

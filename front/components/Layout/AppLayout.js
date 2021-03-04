@@ -9,6 +9,12 @@ const Layout = styled.div`
   display: flex;
   flex-direction: column;
 `
+const BodyWrapper = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`
+
 const AppLayout = ({ children }) => {
   return (
     <Layout>
