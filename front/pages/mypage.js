@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import AppLayout from '../components/Layout/AppLayout'
 import Router from 'next/router'
 import Head from 'next/head'
-import Account from '../components/Account/Account'
-import AppLayout from '../components/Layout/AppLayout'
-import { useSelector } from 'react-redux'
 
-const login = () => {
+const mypage = () => {
   const { isLoggedIn } = useSelector(state => state.user)
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
       Router.replace('/')
     }
   }, [isLoggedIn])
@@ -17,12 +16,11 @@ const login = () => {
   return (
     <AppLayout>
       <Head>
-        <title>리더스 로그인/회원가입</title>
+        <title>리더스 마이페이지</title>
       </Head>
-
-      <Account />
+      마이페이지
     </AppLayout>
   )
 }
 
-export default login
+export default mypage

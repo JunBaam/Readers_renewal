@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import AccountTabs from './AccountTabs'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
@@ -9,6 +8,8 @@ import { AccountWrapper } from './accountStyles'
 const Account = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   const submitForm = () => {
     setIsSubmitted(true)
   }
@@ -17,7 +18,7 @@ const Account = () => {
     <AccountWrapper>
       <AccountTabs>
         <div label="로그인">
-          <LoginForm submitForm={submitForm} />
+          <LoginForm setIsLoggedIn={setIsLoggedIn} />
         </div>
         <div label="회원가입">
           <SignupForm submitForm={submitForm} />

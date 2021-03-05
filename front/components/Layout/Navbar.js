@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 const NavLayout = styled.div`
   display: flex;
@@ -24,6 +25,9 @@ const SearchWrapper = styled.div`
 `
 
 const Navbar = () => {
+  const { isLoggedIn } = useSelector(state => state.user)
+  // const me = useSelector(state => state.user.user.nickname)
+
   return (
     <NavLayout>
       <Link href="/">
@@ -34,9 +38,16 @@ const Navbar = () => {
           <div>도서검색 / 후기작성</div>
         </Link>
       </SearchWrapper>
-      <Link href="/login">
-        <div>로그인 / 회원가입</div>
-      </Link>
+
+      {isLoggedIn ? (
+        <Link href="/mypage">
+          <div>"임시"</div>
+        </Link>
+      ) : (
+        <Link href="/login">
+          <div> 로그인 / 회원가입</div>
+        </Link>
+      )}
     </NavLayout>
   )
 }

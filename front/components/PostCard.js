@@ -4,6 +4,7 @@ import Button from '../components/Button'
 import dummyData from './Slider/sliderData'
 
 import styled from 'styled-components'
+import Link from 'next/link'
 
 const PostTitle = styled.div`
   border: 1px solid black;
@@ -67,7 +68,6 @@ const PostCard = () => {
           <div>
             <h3>
               {data.title}
-
               <StarWrapper>
                 <span>🟊</span>
                 <p>{data.rating}</p>
@@ -81,7 +81,11 @@ const PostCard = () => {
         </PostCardWrapper>
       ))}
 
-      <Button size="mid">리뷰 더보기</Button>
+      <Link href="/reviewList">
+        <a>
+          <Button size="mid">리뷰 더보기</Button>
+        </a>
+      </Link>
     </>
   )
 }
