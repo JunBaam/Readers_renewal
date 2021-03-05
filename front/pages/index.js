@@ -3,9 +3,7 @@ import AppLayout from '../components/Layout/AppLayout'
 import Slider from '../components/Slider/Slider'
 import PostCard from '../components/PostCard'
 import Rank from '../components/Rank'
-
 import styled from 'styled-components'
-import Button from '../components/Button'
 
 const HomeTitleWrapper = styled.div`
   display: flex;
