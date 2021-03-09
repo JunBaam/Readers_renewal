@@ -10,7 +10,7 @@ const ReviewListHeader = styled.div`
   justify-content: space-between;
   font-size: 16px;
   line-height: 34px;
-  padding: 14px 14px 14px 0;
+  padding: 14px 20px 14px 26px;
 
   & > div span {
     color: #ff5757;
