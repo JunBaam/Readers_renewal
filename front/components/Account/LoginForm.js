@@ -19,10 +19,14 @@ const LoginForm = () => {
     setPassword(e.target.value)
   }, [])
 
-  const onSubmitForm = useCallback(() => {
-    dispatch(loginAction([email, password]))
-    Router.replace('/')
-  }, [email, password])
+  const onSubmitForm = useCallback(
+    e => {
+      e.preventDefault()
+      dispatch(loginAction([email, password]))
+      Router.replace('/')
+    },
+    [email, password]
+  )
 
   return (
     <FormWrapper onSubmit={onSubmitForm}>
