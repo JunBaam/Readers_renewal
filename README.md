@@ -1,2 +1,2 @@
-Next.js redux-saga styled-component  
+Next.js React.js(Hooks) redux-saga styled-component  
 Node.js express mysql 
