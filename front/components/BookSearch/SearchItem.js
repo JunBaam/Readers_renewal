@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '../Button'
+import Link from 'next/link'
 import { SearchResultCard } from './searchStyles'
 
 const SearchItem = props => {
@@ -16,8 +17,14 @@ const SearchItem = props => {
           {props.author}(저자) | {props.publisher}
         </h5>
       </div>
-
-      <Button size="mid">더보기 / 리뷰작성</Button>
+      {/* 
+      href : 페이지의 경로
+      as : 브라우저 URL   */}
+      <Link href="/search/[isbn]" as={`/search/${props.isbn}`}>
+        <a>
+          <Button size="mid">더보기 / 리뷰작성</Button>
+        </a>
+      </Link>
     </SearchResultCard>
   )
 }

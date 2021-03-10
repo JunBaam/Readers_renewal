@@ -29,7 +29,7 @@ const Search = () => {
   const bookSearchHandler = useCallback(async (query, reset) => {
     const params = {
       query: query,
-      sort: 'latest', // accuracy | latest 정확도 or 최신
+      sort: 'accuracy', // accuracy | latest 정확도 or 최신
       size: 24, // 최대 50
     }
 

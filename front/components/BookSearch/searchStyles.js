@@ -36,9 +36,10 @@ export const SearchInput = styled.div`
 export const SearchResult = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
   width: 1200px;
   margin-bottom: 10px;
+  margin-left: 10%;
 `
 
 // SearchItem
