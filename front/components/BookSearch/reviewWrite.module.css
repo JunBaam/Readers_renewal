@@ -1,0 +1,31 @@
+.inactive {
+  margin: 0 3px 3px 3px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0.25rem 1rem;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  border: 1px solid #a19f9e;
+  color: #a19f9e;
+  height: 30px;
+  width: 130px;
+  border-radius: 5px;
+}
+
+.active {
+  margin: 0 3px 3px 3px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0.25rem 1rem;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background-color: white;
+  border: 1px solid orangered;
+  color: orangered;
+  height: 30px;
+  width: 130px;
+  border-radius: 5px;
+}
