@@ -1,56 +1,92 @@
-import React from 'react'
-import useForm from '../../custom_hooks/useForm'
-import validate from './validateInfo'
+import React, { useCallback, useState, useEffect } from 'react'
+import useInput from '../../custom_hooks/useInput'
 import Button from '../Button'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { SIGN_UP_REQUEST } from '../../reducers/user'
 import { FormWrapper, InputWarrper } from './accountStyles'
+import Router from 'next/router'
 
-const SignupForm = ({ submitForm }) => {
-  const { handleChange, handleSubmit, values, errors } = useForm(
-    submitForm,
-    validate
+const SignupForm = () => {
+  const dispatch = useDispatch()
+  const [email, onChangeEmail] = useInput('')
+  const [nickname, onChangeNickname] = useInput('')
+  const [password, onChangePassword] = useInput('')
+
+  const [passwordCheck, setPasswordCheck] = useState('')
+  const [passwordError, setPasswordError] = useState(false)
+
+  const onChangePasswordCheck = useCallback(
+    e => {
+      setPasswordCheck(e.target.value)
+      setPasswordError(e.target.value !== password)
+    },
+    [password]
   )
+
+  const { signUpError, signUpDone } = useSelector(state => state.user)
+
+  useEffect(() => {
+    if (signUpError) {
+      alert(signUpError)
+    }
+  }, [signUpError])
+
+  useEffect(() => {
+    if (signUpDone) {
+      Router.replace('/')
+    }
+  }, [signUpDone])
+
+  const onSubmit = useCallback(
+    e => {
+      e.preventDefault()
+      if (password !== passwordCheck) {
+        return setPasswordError(true)
+      }
+      dispatch({
+        type: SIGN_UP_REQUEST,
+        data: { email, nickname, password },
+      })
+      console.log(email, nickname, password)
+    },
+    [password, passwordCheck]
+  )
+
   return (
-    <FormWrapper onSubmit={handleSubmit} noValidate>
+    <FormWrapper onSubmit={onSubmit}>
       <InputWarrper
         type="text"
-        name="username"
-        placeholder="아이디"
-        value={values.username}
-        onChange={handleChange}
+        name="nickname"
+        placeholder="닉네임"
+        value={nickname}
+        onChange={onChangeNickname}
       />
-      {errors.username && <p>{errors.username}</p>}
 
       <InputWarrper
         type="email"
         name="email"
         placeholder="이메일 주소"
-        value={values.email}
-        onChange={handleChange}
+        value={email}
+        onChange={onChangeEmail}
       />
-      {errors.email && <p>{errors.email}</p>}
 
       <InputWarrper
         type="password"
         name="password"
         placeholder="비밀번호"
-        value={values.password}
-        onChange={handleChange}
+        value={password}
+        onChange={onChangePassword}
       />
-      {errors.password && <p>{errors.password}</p>}
 
       <InputWarrper
         type="password"
-        name="password2"
+        name="password-check"
         placeholder="비밀번호 확인"
-        value={values.password2}
-        onChange={handleChange}
+        value={passwordCheck}
+        onChange={onChangePasswordCheck}
       />
-      {errors.password2 && <p>{errors.password2}</p>}
+      {passwordError && <p>비밀번호가 일치하지 않습니다.</p>}
 
-      {/* <button className="form-input-btn" type="submit">
-        회원가입
-      </button> */}
       <Button size="large" type="submit">
         회원가입
       </Button>

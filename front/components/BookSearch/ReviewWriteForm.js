@@ -11,6 +11,7 @@ import {
 } from './ReviewStyles'
 import StarRating from './StarRating'
 import Button from '../Button'
+import useInput from '../../custom_hooks/useInput'
 
 const ReviewWriteForm = props => {
   const categorySelect = {
@@ -45,16 +46,32 @@ const ReviewWriteForm = props => {
 
   const [category, setCategory] = useState(categorySelect)
   const [rating, setRating] = useState(1)
+  const [text, onChangeText] = useInput('')
 
   const ratingHandler = useCallback(value => {
     setRating(value)
   })
   const activeBtn = useCallback(index => {
+    console.log(category.objects[index])
     setCategory({ ...category, activeObject: category.objects[index] })
   })
 
+  const onSubmitForm = useCallback(
+    e => {
+      e.preventDefault()
+
+      let categoryValue = category.activeObject.category
+      console.log('제출')
+      console.log(text, rating, categoryValue)
+    },
+    [text]
+  )
+
   return (
-    <ReviewWriteFormWrapper>
+    <ReviewWriteFormWrapper
+      encType="multipart/form-data"
+      onSubmit={onSubmitForm}
+    >
       <SearchbookInfo>
         <div>
           <img
@@ -106,9 +123,13 @@ const ReviewWriteForm = props => {
 
         <p>후기내용</p>
         <ReviewInput>
-          <textarea />
+          <textarea
+            value={text}
+            onChange={onChangeText}
+            placeholder="리뷰를 작성해주세요."
+          />
         </ReviewInput>
-        <ButtonPosition>
+        <ButtonPosition type="submit">
           <Button size="large">후기작성하기</Button>
         </ButtonPosition>
       </ReviewWriteWapper>

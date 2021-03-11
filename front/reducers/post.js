@@ -202,7 +202,7 @@ export const addPost = {
   type: ADD_POST,
 }
 
-export default (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST: {
       return {
@@ -212,9 +212,9 @@ export default (state = initialState, action) => {
       }
     }
     default: {
-      return {
-        ...state,
-      }
+      return state
     }
   }
 }
+
+export default reducer
