@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import Button from '../Button'
 import { FormWrapper, InputWarrper } from './accountStyles'
 import { useDispatch } from 'react-redux'
-import { loginAction } from '../../reducers/user'
+import { loginRequestAction } from '../../reducers/user'
 import Link from 'next/link'
 import Router from 'next/router'
 
@@ -22,8 +22,8 @@ const LoginForm = () => {
   const onSubmitForm = useCallback(
     e => {
       e.preventDefault()
-      dispatch(loginAction([email, password]))
-      Router.replace('/')
+      console.log(email, password)
+      dispatch(loginRequestAction([email, password]))
     },
     [email, password]
   )

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const ReviewWriteFormWrapper = styled.div`
+export const ReviewWriteFormWrapper = styled.form`
   width: 850px;
   margin: 0 auto;
 `
