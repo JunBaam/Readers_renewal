@@ -1,13 +1,13 @@
 import { applyMiddleware, createStore, compose } from 'redux'
-import createSagaMiddleware from 'redux-saga'
 import { createWrapper } from 'next-redux-wrapper'
+import createSagaMiddleware from 'redux-saga'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import reducer from '../reducers'
 import rootSaga from '../sagas'
 
 const configureStore = context => {
-  console.log(context)
+  console.log('context', context)
   const sagaMiddleware = createSagaMiddleware()
   const middlewares = [sagaMiddleware]
   const enhancer =
