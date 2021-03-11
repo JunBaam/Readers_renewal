@@ -18,9 +18,7 @@ export const initialState = {
   signUpDone: false,
   signUpError: null,
   isLoggedIn: false,
-  user: null,
-  signUpData: {},
-  loginData: {},
+  me: null, // 로그인한 유저
 }
 
 export const LOG_IN_REQUEST = 'LOG_IN_REQUEST'
@@ -45,7 +43,6 @@ export const logoutRequestAction = () => ({
 })
 
 export const signUpAction = data => {
-  console.log('회원가입요청', data)
   return {
     type: SIGN_UP,
     data,

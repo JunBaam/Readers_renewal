@@ -23,7 +23,13 @@ const SignupForm = () => {
     [password]
   )
 
-  const { signUpError, signUpDone } = useSelector(state => state.user)
+  const { signUpError, signUpDone, me } = useSelector(state => state.user)
+
+  useEffect(() => {
+    if (me && me.id) {
+      Router.replace('/')
+    }
+  }, [me && me.id])
 
   useEffect(() => {
     if (signUpError) {

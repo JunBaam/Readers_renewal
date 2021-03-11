@@ -25,7 +25,7 @@ const SearchWrapper = styled.div`
 `
 
 const Navbar = () => {
-  const { isLoggedIn, user } = useSelector(state => state.user)
+  const { me } = useSelector(state => state.user)
   // const me = useSelector(state => state.user.user.nickname)
 
   return (
@@ -39,9 +39,9 @@ const Navbar = () => {
         </Link>
       </SearchWrapper>
 
-      {isLoggedIn ? (
+      {me ? (
         <Link href="/mypage">
-          <div>{user.nickname}</div>
+          <div>{me.nickname}</div>
         </Link>
       ) : (
         <Link href="/login">
