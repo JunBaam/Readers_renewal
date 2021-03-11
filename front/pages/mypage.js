@@ -6,13 +6,13 @@ import Head from 'next/head'
 import Mypage from '../components/Mypage/Mypage'
 
 const mypage = () => {
-  const { isLoggedIn } = useSelector(state => state.user)
+  const { me } = useSelector(state => state.user)
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (me === null) {
       Router.replace('/')
     }
-  }, [isLoggedIn])
+  }, [me])
 
   return (
     <AppLayout>

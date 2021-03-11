@@ -1,10 +1,13 @@
 const express = require('express')
 const cors = require('cors')
-
 const dotenv = require('dotenv')
-
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
 const userRouter = require('./routes/user')
 const db = require('./models')
+const passport = require('passport')
+const passportConfig = require('./passport')
 
 dotenv.config()
 const app = express()
@@ -16,6 +19,9 @@ db.sequelize
   })
   .catch(console.error)
 
+// passport를 app.js와 연결
+passportConfig()
+app.use(morgan('dev'))
 app.use(
   cors({
     origin: true,
@@ -27,6 +33,16 @@ app.use(
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use(
+  session({
+    saveUninitialized: false,
+    resave: false,
+    secret: process.env.COOKIE_SECRET,
+  })
+)
 app.get('/', (req, res) => {
   res.send('hi expres')
 })

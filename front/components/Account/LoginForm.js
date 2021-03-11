@@ -1,32 +1,39 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Button from '../Button'
 import { FormWrapper, InputWarrper } from './accountStyles'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginRequestAction } from '../../reducers/user'
+import useInput from '../../custom_hooks/useInput'
 import Link from 'next/link'
 import Router from 'next/router'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, onChangeEmail] = useInput('')
+  const [password, onChangePassword] = useInput('')
 
-  const onChangeEmail = useCallback(e => {
-    setEmail(e.target.value)
-  }, [])
-
-  const onChangePassowrd = useCallback(e => {
-    setPassword(e.target.value)
-  }, [])
+  const { logInError, me, loginDone } = useSelector(state => state.user)
 
   const onSubmitForm = useCallback(
     e => {
       e.preventDefault()
       console.log(email, password)
-      dispatch(loginRequestAction([email, password]))
+      dispatch(loginRequestAction({ email, password }))
     },
     [email, password]
   )
+
+  useEffect(() => {
+    if (logInError) {
+      alert(logInError)
+    }
+  }, [logInError])
+
+  useEffect(() => {
+    if (me) {
+      Router.replace('/')
+    }
+  }, [me])
 
   return (
     <FormWrapper onSubmit={onSubmitForm}>
@@ -44,7 +51,7 @@ const LoginForm = () => {
         name="password"
         placeholder="비밀번호"
         value={password}
-        onChange={onChangePassowrd}
+        onChange={onChangePassword}
       />
       {/* {errors.password && <p>{errors.password}</p>} */}
 

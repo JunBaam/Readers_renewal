@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import MypageTab from './MypageTab'
 import Button from '../Button'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { logoutRequestAction } from '../../reducers/user'
 
 const MypageWrapper = styled.div`
@@ -20,16 +20,16 @@ const MypageWrapper = styled.div`
 `
 const Mypage = () => {
   const dispatch = useDispatch()
+  const { me } = useSelector(state => state.user)
   const onLogOut = useCallback(() => {
     console.log('버튼눌러짐')
-
     dispatch(logoutRequestAction())
   }, [])
 
   return (
     <MypageWrapper>
       <p>
-        유저아이디
+        {me ? me.email : ''}
         <span onClick={onLogOut}>
           <Button size="small">로그아웃</Button>
         </span>

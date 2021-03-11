@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// cors 에러
+// cors
 axios.defaults.withCredentials = false
 export const Kakao = axios.create({
   baseURL: 'https://dapi.kakao.com',
