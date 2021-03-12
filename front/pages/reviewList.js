@@ -1,9 +1,10 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import AppLayout from '../components/Layout/AppLayout'
 import Head from 'next/head'
 import ReviewList from '../components/Review/ReviewList'
 import styled from 'styled-components'
+import { LOAD_POSTS_REQUEST } from '../reducers/post'
 
 const ReviewListHeader = styled.div`
   display: flex;
@@ -13,10 +14,11 @@ const ReviewListHeader = styled.div`
   padding: 14px 20px 14px 26px;
 
   & > div span {
+    font-size: 20px;
+    font-weight: 500;
     color: #ff5757;
   }
 `
-
 const ReviewListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -24,8 +26,16 @@ const ReviewListWrapper = styled.div`
 `
 
 const reviewList = () => {
-  const { isLoggedIn } = useSelector(state => state.user)
-  const { mainPosts } = useSelector(state => state.post)
+  const dispatch = useDispatch()
+  const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector(
+    state => state.post
+  )
+
+  useEffect(() => {
+    dispatch({
+      type: LOAD_POSTS_REQUEST,
+    })
+  }, [])
 
   return (
     <AppLayout>
@@ -35,13 +45,13 @@ const reviewList = () => {
 
       <ReviewListHeader>
         <div>
-          <span>N</span>개의 리뷰가 있습니다.
+          <span>{mainPosts.length}</span>개의 리뷰가 있습니다.
         </div>
         <div>인기순</div>
       </ReviewListHeader>
 
       <ReviewListWrapper>
-        {mainPosts.map((post, index) => (
+        {mainPosts.map(post => (
           <ReviewList key={post.id} post={post} />
         ))}
       </ReviewListWrapper>

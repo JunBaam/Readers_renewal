@@ -13,16 +13,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(40),
       },
       publisher: {
-        type: DataTypes.STRING(40),
+        type: DataTypes.STRING(100),
       },
       title: {
-        type: DataTypes.STRING(40),
+        type: DataTypes.STRING(100),
       },
       category: {
         type: DataTypes.STRING(40),
       },
       author: {
-        type: DataTypes.STRING(40),
+        type: DataTypes.STRING(100),
       },
       date: {
         type: DataTypes.STRING(40),
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(10),
       },
       image_url: {
-        type: DataTypes.STRING(200),
+        type: DataTypes.STRING(250),
       },
     },
     {
