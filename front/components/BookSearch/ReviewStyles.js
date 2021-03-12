@@ -80,6 +80,10 @@ export const ReviewCategory = styled.div`
   font-weight: 600;
   font-size: 17px;
   margin-top: 20px;
+
+  & > span {
+    text-align: center;
+  }
 `
 
 // 후기내용

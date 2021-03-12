@@ -6,10 +6,6 @@ import dummyData from './Slider/sliderData'
 import styled from 'styled-components'
 import Link from 'next/link'
 
-const PostTitle = styled.div`
-  border: 1px solid black;
-`
-
 const PostCardWrapper = styled.div`
   cursor: pointer;
   padding: 10px;
@@ -58,7 +54,6 @@ const StarWrapper = styled.span`
     font-size: 20px;
   }
 `
-
 const PostCard = () => {
   return (
     <>
