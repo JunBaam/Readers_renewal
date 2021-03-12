@@ -4,7 +4,7 @@ import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
 export const ReviewListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 450px;
+  height: 400px;
   width: 300px;
   margin: 0 10px 20px 10px;
   cursor: pointer;
@@ -13,8 +13,9 @@ export const ReviewListContainer = styled.div`
   position: relative;
 
   & > img {
-    width: 226px;
-    height: 300px;
+    padding-top: 10px;
+    width: 220px;
+    height: 260px;
     margin: 0 auto;
     border-radius: 5px;
   }
@@ -27,26 +28,50 @@ export const ReviewContent = styled.div`
   font-size: 13px;
   color: #a19f9e;
   cursor: pointer;
-  margin: 10px 0px 0px 20px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  & > div {
-    color: black;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  & > div:hover {
-    text-decoration: underline;
-  }
+  margin: 10px 10px 0px 20px;
 
   & > p {
     color: black;
     margin-top: 5px;
     font-size: 14px;
-    line-height: 24px;
+
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`
+export const ReviewTitle = styled.span`
+  display: flex;
+  justify-content: space-between;
+  color: black;
+  font-size: 18px;
+
+  & > h4 {
+    font-weight: 500;
+    margin: 0;
+    width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  h4:hover {
+    text-decoration: underline;
+  }
+  & > p {
+    margin: 0;
+    color: orange;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  & > p span {
+    margin: 0;
+
+    color: black;
+    font-weight: 300;
+    margin-left: 5px;
   }
 `
 

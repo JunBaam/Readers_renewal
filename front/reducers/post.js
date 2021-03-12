@@ -1,197 +1,25 @@
 import produce from 'immer'
 
 export const initialState = {
-  mainPosts: [
-    {
-      id: 1,
-      User: {
-        id: 1,
-        nickname: '아침밥',
-      },
-      author: '저자',
-      publish: '출판사',
-      content: '첫 번째 게시글',
-      Images: [
-        {
-          src:
-            'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
-        },
-      ],
-      Comments: [
-        {
-          User: {
-            nickname: 'nero',
-          },
-          content: '우와 개정판이 나왔군요~',
-        },
-        {
-          User: {
-            nickname: 'hero',
-          },
-          content: '얼른 사고싶어요~',
-        },
-      ],
-    },
-    {
-      id: 1,
-      User: {
-        id: 1,
-        nickname: '아침밥',
-      },
-      author: '저자',
-      publish: '출판사',
-      content: '첫 번째 게시글',
-      Images: [
-        {
-          src:
-            'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
-        },
-      ],
-      Comments: [
-        {
-          User: {
-            nickname: 'nero',
-          },
-          content: '우와 개정판이 나왔군요~',
-        },
-        {
-          User: {
-            nickname: 'hero',
-          },
-          content: '얼른 사고싶어요~',
-        },
-      ],
-    },
-    {
-      id: 1,
-      User: {
-        id: 1,
-        nickname: '아침밥',
-      },
-      author: '저자',
-      publish: '출판사',
-      content: '첫 번째 게시글',
-      Images: [
-        {
-          src:
-            'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
-        },
-      ],
-      Comments: [
-        {
-          User: {
-            nickname: 'nero',
-          },
-          content: '우와 개정판이 나왔군요~',
-        },
-        {
-          User: {
-            nickname: 'hero',
-          },
-          content: '얼른 사고싶어요~',
-        },
-      ],
-    },
-    {
-      id: 1,
-      User: {
-        id: 1,
-        nickname: '아침밥',
-      },
-      author: '저자',
-      publish: '출판사',
-      content: '첫 번째 게시글',
-      Images: [
-        {
-          src:
-            'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
-        },
-      ],
-      Comments: [
-        {
-          User: {
-            nickname: 'nero',
-          },
-          content: '우와 개정판이 나왔군요~',
-        },
-        {
-          User: {
-            nickname: 'hero',
-          },
-          content: '얼른 사고싶어요~',
-        },
-      ],
-    },
-    {
-      id: 1,
-      User: {
-        id: 1,
-        nickname: '아침밥',
-      },
-      author: '저자',
-      publish: '출판사',
-      content: '첫 번째 게시글',
-      Images: [
-        {
-          src:
-            'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001958/rn_view_BN001958.jpg',
-        },
-        {
-          src: 'https://gimg.gilbut.co.kr/book/BN001998/rn_view_BN001998.jpg',
-        },
-      ],
-      Comments: [
-        {
-          User: {
-            nickname: 'nero',
-          },
-          content: '우와 개정판이 나왔군요~',
-        },
-        {
-          User: {
-            nickname: 'hero',
-          },
-          content: '얼른 사고싶어요~',
-        },
-      ],
-    },
-  ],
-  // imagePaths: [],
+  mainPosts: [],
+
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
+
+  loadPostsLoading: false,
+  loadPostsDone: false,
+  loadPostsError: null,
+  hasMorePosts: true,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST'
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS'
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE'
+
+export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST'
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS'
+export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE'
 
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
@@ -211,6 +39,22 @@ const reducer = (state = initialState, action) => {
       case ADD_POST_FAILURE:
         draft.addPostLoading = false
         draft.addPostError = action.error
+        break
+
+      case LOAD_POSTS_REQUEST:
+        draft.loadPostsLoading = true
+        draft.loadPostsDone = false
+        draft.loadPostsError = null
+        break
+      case LOAD_POSTS_SUCCESS:
+        draft.loadPostsLoading = false
+        draft.loadPostsDone = true
+        draft.mainPosts = draft.mainPosts.concat(action.data)
+        draft.hasMorePosts = action.data.length === 10
+        break
+      case LOAD_POSTS_FAILURE:
+        draft.loadPostsLoading = false
+        draft.loadPostsError = action.error
         break
 
       default:

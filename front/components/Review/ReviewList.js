@@ -1,5 +1,10 @@
 import React, { useState, useCallback } from 'react'
-import { ReviewListContainer, ReviewContent, HeartIcon } from './reviewStyles'
+import {
+  ReviewListContainer,
+  ReviewContent,
+  ReviewTitle,
+  HeartIcon,
+} from './reviewStyles'
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
 
 const ReviewList = ({ post }) => {
@@ -11,19 +16,24 @@ const ReviewList = ({ post }) => {
 
   return (
     <ReviewListContainer>
-      <img
-        src={
-          'https://bookthumb-phinf.pstatic.net/cover/137/995/13799585.jpg?udate=20180726'
-        }
-      />
+      <img src={post.image_url} />
 
       <HeartIcon onClick={onToggleLike}>
         {liked ? <AiTwotoneHeart color="orangered" /> : <AiOutlineHeart />}
       </HeartIcon>
 
       <ReviewContent>
-        <div> {post.content}</div>
-        {post.author} | {post.publish} | #카테고리
+        <ReviewTitle>
+          <h4> {post.title}</h4>
+          <p>
+            🟊<span>{post.rating}</span>
+          </p>
+        </ReviewTitle>
+
+        <span>
+          {post.author} | {post.publisher} | {post.category}
+        </span>
+
         <p> {post.content}</p>
       </ReviewContent>
     </ReviewListContainer>

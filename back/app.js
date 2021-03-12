@@ -8,6 +8,7 @@ const db = require('./models')
 const passport = require('passport')
 const passportConfig = require('./passport')
 
+const postsRouter = require('./routes/posts')
 const postRouter = require('./routes/post')
 const userRouter = require('./routes/user')
 
@@ -53,6 +54,7 @@ app.get('/', (req, res) => {
 
 app.use('/user', userRouter)
 app.use('/post', postRouter)
+app.use('/posts', postsRouter)
 
 app.listen(3065, () => {
   console.log('서버실행중 ')
