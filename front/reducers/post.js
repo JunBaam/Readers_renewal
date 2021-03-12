@@ -1,3 +1,5 @@
+import produce from 'immer'
+
 export const initialState = {
   mainPosts: [
     {
@@ -181,40 +183,39 @@ export const initialState = {
       ],
     },
   ],
-  imagePaths: [],
-  postAdded: false,
+  // imagePaths: [],
+  addPostLoading: false,
+  addPostDone: false,
+  addPostError: null,
 }
 
-const dummyPost = {
-  id: 2,
-  content: '더미데이터입니다.',
-  User: {
-    id: 1,
-    nickname: '제로초',
-  },
-  Images: [],
-  Comments: [],
-}
-
-const ADD_POST = 'ADD_POST'
-
-export const addPost = {
-  type: ADD_POST,
-}
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST'
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS'
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE'
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_POST: {
-      return {
-        ...state,
-        mainPosts: [dummyPost, ...state.mainPosts],
-        postAdded: true,
-      }
-    }
-    default: {
-      return state
-    }
-  }
-}
+  return produce(state, draft => {
+    switch (action.type) {
+      case ADD_POST_REQUEST:
+        draft.addPostLoading = true
+        draft.addPostDone = false
+        draft.addPostError = null
+        break
 
+      case ADD_POST_SUCCESS:
+        draft.addPostLoading = false
+        draft.addPostDone = true
+        draft.mainPosts.unshift(action.data)
+        break
+
+      case ADD_POST_FAILURE:
+        draft.addPostLoading = false
+        draft.addPostError = action.error
+        break
+
+      default:
+        break
+    }
+  })
+}
 export default reducer

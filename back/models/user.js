@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       nickname: {
         type: DataTypes.STRING(30),
-        allowNull: false, // 필수
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING(100),
-        allowNull: false, // 필수
+        allowNull: false,
       },
     },
     {

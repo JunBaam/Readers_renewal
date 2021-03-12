@@ -1,5 +1,11 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styles from './reviewWrite.module.css'
+import StarRating from './StarRating'
+import Button from '../Button'
+import useInput from '../../custom_hooks/useInput'
+import { ADD_POST_REQUEST } from '../../reducers/post'
+import { useDispatch, useSelector } from 'react-redux'
+import Router from 'next/router'
 import {
   ReviewWriteFormWrapper,
   SearchbookInfo,
@@ -9,9 +15,6 @@ import {
   ReviewInput,
   ButtonPosition,
 } from './ReviewStyles'
-import StarRating from './StarRating'
-import Button from '../Button'
-import useInput from '../../custom_hooks/useInput'
 
 const ReviewWriteForm = props => {
   const categorySelect = {
@@ -44,9 +47,11 @@ const ReviewWriteForm = props => {
     ],
   }
 
+  const dispatch = useDispatch()
   const [category, setCategory] = useState(categorySelect)
   const [rating, setRating] = useState(1)
   const [text, onChangeText] = useInput('')
+  const { addPostDone } = useSelector(state => state.post)
 
   const ratingHandler = useCallback(value => {
     setRating(value)
@@ -56,22 +61,43 @@ const ReviewWriteForm = props => {
     setCategory({ ...category, activeObject: category.objects[index] })
   })
 
+  useEffect(() => {
+    if (addPostDone) {
+      Router.replace('/reviewList')
+    }
+  }, [addPostDone])
+
   const onSubmitForm = useCallback(
     e => {
       e.preventDefault()
-
+      if (!text || !text.trim()) {
+        return alert('게시글을 작성해주세요')
+      }
       let categoryValue = category.activeObject.category
-      console.log('제출')
-      console.log(text, rating, categoryValue)
+      console.log('카테고리', categoryValue)
+
+      // 제목,책정보,저자,작성자,가격,출판일,카테고리,별점,이미지,후기내용  10개
+      return dispatch({
+        type: ADD_POST_REQUEST,
+        data: {
+          title: props.title,
+          bookinfo: props.contents,
+          author: props.author.toString(),
+          publisher: props.publisher,
+          price: props.price,
+          date: props.datetime,
+          image_url: props.thumbnail,
+          category: categoryValue,
+          rating: rating,
+          content: text,
+        },
+      })
     },
-    [text]
+    [text, category, rating]
   )
 
   return (
-    <ReviewWriteFormWrapper
-      encType="multipart/form-data"
-      onSubmit={onSubmitForm}
-    >
+    <ReviewWriteFormWrapper onSubmit={onSubmitForm}>
       <SearchbookInfo>
         <div>
           <img
@@ -95,7 +121,7 @@ const ReviewWriteForm = props => {
         <p>카테고리</p>
         <ReviewCategory>
           {category.objects.map((value, index) => (
-            <button
+            <span
               value={value}
               className={
                 category.objects[index] === category.activeObject
@@ -108,7 +134,7 @@ const ReviewWriteForm = props => {
               }}
             >
               {value.category}
-            </button>
+            </span>
           ))}
         </ReviewCategory>
 
@@ -121,7 +147,7 @@ const ReviewWriteForm = props => {
           onChange={ratingHandler}
         />
 
-        <p>후기내용</p>
+        <p>도서리뷰내용</p>
         <ReviewInput>
           <textarea
             value={text}
@@ -129,8 +155,10 @@ const ReviewWriteForm = props => {
             placeholder="리뷰를 작성해주세요."
           />
         </ReviewInput>
-        <ButtonPosition type="submit">
-          <Button size="large">후기작성하기</Button>
+        <ButtonPosition>
+          <Button size="large" type="submit">
+            리뷰작성
+          </Button>
         </ButtonPosition>
       </ReviewWriteWapper>
     </ReviewWriteFormWrapper>

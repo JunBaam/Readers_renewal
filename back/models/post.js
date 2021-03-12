@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     {
       content: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        // allowNull: false,
+      },
+      bookinfo: {
+        type: DataTypes.TEXT,
       },
       price: {
         type: DataTypes.STRING(40),
@@ -20,6 +23,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       author: {
         type: DataTypes.STRING(40),
+      },
+      date: {
+        type: DataTypes.STRING(40),
+      },
+      rating: {
+        type: DataTypes.STRING(10),
+      },
+      image_url: {
+        type: DataTypes.STRING(200),
       },
     },
     {

@@ -4,10 +4,12 @@ const dotenv = require('dotenv')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
-const userRouter = require('./routes/user')
 const db = require('./models')
 const passport = require('passport')
 const passportConfig = require('./passport')
+
+const postRouter = require('./routes/post')
+const userRouter = require('./routes/user')
 
 dotenv.config()
 const app = express()
@@ -33,9 +35,7 @@ app.use(
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use(passport.initialize())
-app.use(passport.session())
-
+app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use(
   session({
     saveUninitialized: false,
@@ -43,11 +43,16 @@ app.use(
     secret: process.env.COOKIE_SECRET,
   })
 )
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.get('/', (req, res) => {
   res.send('hi expres')
 })
 
 app.use('/user', userRouter)
+app.use('/post', postRouter)
 
 app.listen(3065, () => {
   console.log('서버실행중 ')

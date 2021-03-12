@@ -2,6 +2,7 @@ const express = require('express')
 const { User, Post } = require('../models')
 const bcrypt = require('bcrypt')
 const passpost = require('passport')
+
 const router = express.Router()
 
 // 회원가입 /user
@@ -74,6 +75,32 @@ router.post('/logout', (req, res) => {
   req.logout()
   req.session.destroy()
   res.send('ok')
+})
+
+//로그인 유저 불러오기   /GET /user
+router.get('/', async (req, res, next) => {
+  try {
+    // 사용자가 있으면 보내주고 없으면 아무것도 안보냄
+    if (req.user) {
+      const fullUserWithoutPassword = await User.findOne({
+        where: { id: req.user.id },
+        attributes: {
+          exclude: ['password'],
+        },
+        include: [
+          {
+            model: Post,
+          },
+        ],
+      })
+      res.status(200).json(fullUserWithoutPassword)
+    } else {
+      res.status(200).json(null)
+    }
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
 })
 
 module.exports = router

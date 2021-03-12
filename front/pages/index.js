@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import AppLayout from '../components/Layout/AppLayout'
 import Slider from '../components/Slider/Slider'
 import PostCard from '../components/PostCard'
 import Rank from '../components/Rank'
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
+import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
 
 const HomeTitleWrapper = styled.div`
   display: flex;
@@ -16,7 +18,6 @@ const HomeTitleWrapper = styled.div`
     margin-left: 10px;
   }
 `
-
 const HomeMidWrapper = styled.div`
   display: flex;
 `
@@ -36,6 +37,13 @@ const RankWrapper = styled.div`
 `
 
 const Home = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch({
+      type: LOAD_MY_INFO_REQUEST,
+    })
+  }, [])
   return (
     <AppLayout>
       <Slider />
