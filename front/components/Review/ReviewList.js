@@ -8,6 +8,7 @@ import {
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { LIKE_POST_REQUEST, UNLIKE_POST_REQUEST } from '../../reducers/post'
+import Link from 'next/link'
 
 const ReviewList = ({ post }) => {
   const dispatch = useDispatch()
@@ -30,8 +31,11 @@ const ReviewList = ({ post }) => {
 
   return (
     <ReviewListContainer>
-      <img src={post.image_url} />
-
+      <Link href="/review/[id]" as={`/review/${post.id}`}>
+        <a>
+          <img src={post.image_url} />
+        </a>
+      </Link>
       <HeartIcon>
         {liked ? (
           <AiTwotoneHeart color="orangered" key="like" onClick={onUnLike} />

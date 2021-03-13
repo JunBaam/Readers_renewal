@@ -12,7 +12,6 @@ const App = ({ Component, pageProps }) => {
         <meta charSet="utf-8" />
         <title>리더스</title>
       </Head>
-
       <Component {...pageProps} />
     </>
   )

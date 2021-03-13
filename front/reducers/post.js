@@ -2,17 +2,21 @@ import produce from 'immer'
 
 export const initialState = {
   mainPosts: [],
-  addPostLoading: false,
+  onePost: null,
+  addPostLoading: false, //게시글추가
   addPostDone: false,
   addPostError: null,
-  loadPostsLoading: false,
+  loadPostsLoading: false, //게시물 여러개 불러오기
   loadPostsDone: false,
   loadPostsError: null,
-  hasMorePosts: true,
-  likePostLoading: false,
+  loadPostLoading: false, //단일 게시물 불러오기
+  loadPostDone: false,
+  loadPostError: null,
+  hasMorePosts: true, //게시물 추가로 불러오기
+  likePostLoading: false, //좋아요
   likePostDone: false,
   likePostError: null,
-  unlikePostLoading: false,
+  unlikePostLoading: false, //좋아요취소
   unlikePostDone: false,
   unlikePostError: null,
 }
@@ -24,6 +28,10 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE'
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST'
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS'
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE'
+
+export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST'
+export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS'
+export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE'
 
 export const LIKE_POST_REQUEST = 'LIKE_POST_REQUEST'
 export const LIKE_POST_SUCCESS = 'LIKE_POST_SUCCESS'
@@ -67,6 +75,21 @@ const reducer = (state = initialState, action) => {
       case LOAD_POSTS_FAILURE:
         draft.loadPostsLoading = false
         draft.loadPostsError = action.error
+        break
+
+      case LOAD_POST_REQUEST:
+        draft.loadPostLoading = true
+        draft.loadPostDone = false
+        draft.loadPostError = null
+        break
+      case LOAD_POST_SUCCESS:
+        draft.loadPostLoading = false
+        draft.loadPostDone = true
+        draft.onePost = action.data
+        break
+      case LOAD_POST_FAILURE:
+        draft.loadPostLoading = false
+        draft.loadPostError = action.error
         break
 
       case LIKE_POST_REQUEST:

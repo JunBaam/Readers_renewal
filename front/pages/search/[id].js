@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
 import { Kakao } from '../../components/BookSearch/kakaoRequest'
 import AppLayout from '../../components/Layout/AppLayout'
 import styled from 'styled-components'
@@ -11,9 +10,6 @@ const ReveiwWriteWrapper = styled.div`
 `
 
 const Search = ({ result }) => {
-  // const router = useRouter()
-  // const { id } = router.query
-
   useEffect(() => {
     console.log('getServerSideProps', result)
   }, [])

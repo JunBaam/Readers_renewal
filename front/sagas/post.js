@@ -8,6 +8,9 @@ import {
   LOAD_POSTS_REQUEST,
   LOAD_POSTS_SUCCESS,
   LOAD_POSTS_FAILURE,
+  LOAD_POST_REQUEST,
+  LOAD_POST_SUCCESS,
+  LOAD_POST_FAILURE,
   LIKE_POST_FAILURE,
   LIKE_POST_REQUEST,
   LIKE_POST_SUCCESS,
@@ -32,6 +35,26 @@ function* loadPosts(action) {
     console.error(err)
     yield put({
       type: LOAD_POSTS_FAILURE,
+      error: err.response.data,
+    })
+  }
+}
+
+function loadPostAPI(data) {
+  return axios.get(`/post/${data}`)
+}
+
+function* loadPost(action) {
+  try {
+    const result = yield call(loadPostAPI, action.data)
+    yield put({
+      type: LOAD_POST_SUCCESS,
+      data: result.data,
+    })
+  } catch (err) {
+    console.error(err)
+    yield put({
+      type: LOAD_POST_FAILURE,
       error: err.response.data,
     })
   }
@@ -107,6 +130,10 @@ function* watchLoadPosts() {
   yield throttle(4000, LOAD_POSTS_REQUEST, loadPosts)
 }
 
+function* watchLoadPost() {
+  yield takeLatest(LOAD_POST_REQUEST, loadPost)
+}
+
 function* watchLikePost() {
   yield takeLatest(LIKE_POST_REQUEST, likePost)
 }
@@ -119,6 +146,7 @@ export default function* postSaga() {
   yield all([
     fork(watchAddPost),
     fork(watchLoadPosts),
+    fork(watchLoadPost),
     fork(watchLikePost),
     fork(watchUnlikePost),
   ])
