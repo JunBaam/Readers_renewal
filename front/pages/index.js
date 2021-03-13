@@ -39,11 +39,11 @@ const RankWrapper = styled.div`
 const Home = () => {
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch({
-      type: LOAD_MY_INFO_REQUEST,
-    })
-  }, [])
+  // useEffect(() => {
+  //   dispatch({
+  //     type: LOAD_MY_INFO_REQUEST,
+  //   })
+  // }, [])
   return (
     <AppLayout>
       <Slider />
