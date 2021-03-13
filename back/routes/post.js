@@ -50,4 +50,35 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// PATCH /post/:postId/like
+router.patch('/:postId/like', async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ where: { id: req.params.postId } })
+    if (!post) {
+      return res.status(403).send('게시글이 존재하지 않습니다.')
+    }
+    // addLikers : 관계메서드
+    await post.addLikers(req.user.id)
+    res.json({ PostId: post.id, UserId: req.user.id })
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+// DELETE /post/:postId/like
+router.delete('/:postId/like', async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ where: { id: req.params.postId } })
+    if (!post) {
+      return res.status(403).send('게시글이 존재하지 않습니다.')
+    }
+    await post.removeLikers(req.user.id)
+    res.json({ PostId: post.id, UserId: req.user.id })
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
 module.exports = router

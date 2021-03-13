@@ -11,11 +11,11 @@ const ReveiwWriteWrapper = styled.div`
 `
 
 const Search = ({ result }) => {
-  const router = useRouter()
+  // const router = useRouter()
   // const { id } = router.query
 
   useEffect(() => {
-    console.log('뻐킹값', result)
+    console.log('getServerSideProps', result)
   }, [])
 
   return (
@@ -51,8 +51,6 @@ export async function getServerSideProps(context) {
   }
   const { data } = await bookIsbnSearch(params)
   const result = data.documents
-
-  console.log('결과', result)
   return { props: { result } }
 }
 

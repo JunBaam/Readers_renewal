@@ -12,6 +12,7 @@ const NavLayout = styled.div`
   & > img {
     width: 210px;
     height: 50px;
+    margin-right: 10px;
   }
   & > div {
     font-size: 16px;
@@ -19,6 +20,7 @@ const NavLayout = styled.div`
     margin-top: 10px;
   }
 `
+
 const SearchWrapper = styled.div`
   margin-right: auto;
   margin-left: 30px;
@@ -26,16 +28,20 @@ const SearchWrapper = styled.div`
 
 const Navbar = () => {
   const { me } = useSelector(state => state.user)
-  // const me = useSelector(state => state.user.user.nickname)
 
   return (
     <NavLayout>
       <Link href="/">
         <img src="/logo.png" />
       </Link>
+      <div>
+        <Link href="/reviewList">
+          <span>리뷰 둘러보기</span>
+        </Link>
+      </div>
       <SearchWrapper>
         <Link href="/search">
-          <div>도서검색 / 후기작성</div>
+          <span>도서검색 / 후기작성</span>
         </Link>
       </SearchWrapper>
 

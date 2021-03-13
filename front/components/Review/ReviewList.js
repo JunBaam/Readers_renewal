@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import {
   ReviewListContainer,
   ReviewContent,
@@ -6,20 +6,38 @@ import {
   HeartIcon,
 } from './reviewStyles'
 import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import { LIKE_POST_REQUEST, UNLIKE_POST_REQUEST } from '../../reducers/post'
 
 const ReviewList = ({ post }) => {
-  const [liked, setLiked] = useState(false)
+  const dispatch = useDispatch()
+  const id = useSelector(state => state.user.me && state.user.me.id)
 
-  const onToggleLike = useCallback(() => {
-    setLiked(prev => !prev)
+  const onLike = useCallback(() => {
+    dispatch({
+      type: LIKE_POST_REQUEST,
+      data: post.id,
+    })
   }, [])
+  const onUnLike = useCallback(() => {
+    dispatch({
+      type: UNLIKE_POST_REQUEST,
+      data: post.id,
+    })
+  }, [])
+
+  const liked = post.Likers.find(v => v.id === id)
 
   return (
     <ReviewListContainer>
       <img src={post.image_url} />
 
-      <HeartIcon onClick={onToggleLike}>
-        {liked ? <AiTwotoneHeart color="orangered" /> : <AiOutlineHeart />}
+      <HeartIcon>
+        {liked ? (
+          <AiTwotoneHeart color="orangered" key="like" onClick={onUnLike} />
+        ) : (
+          <AiOutlineHeart key="unlike" onClick={onLike} />
+        )}
       </HeartIcon>
 
       <ReviewContent>
