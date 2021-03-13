@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import AppLayout from '../components/Layout/AppLayout'
 import Slider from '../components/Slider/Slider'
 import PostCard from '../components/PostCard'
 import Rank from '../components/Rank'
 import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
+import wrapper from '../store/configureStore'
+import axios from 'axios'
+import { END } from 'redux-saga'
 
 const HomeTitleWrapper = styled.div`
   display: flex;
@@ -37,13 +39,6 @@ const RankWrapper = styled.div`
 `
 
 const Home = () => {
-  const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: LOAD_MY_INFO_REQUEST,
-  //   })
-  // }, [])
   return (
     <AppLayout>
       <Slider />
@@ -66,5 +61,24 @@ const Home = () => {
     </AppLayout>
   )
 }
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  console.log('getServerSideProsps', context)
+
+  // 쿠키전달 , 쿠키 공유 방지.
+  // 쿠키를 안쓰고 요청보낼때는 서버에서 공유하는 쿠키를 제거한다.
+  const cookie = context.req ? context.req.headers.cookie : ''
+  axios.defaults.headers.Cookie = ''
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie
+  }
+  context.store.dispatch({
+    type: LOAD_MY_INFO_REQUEST,
+  })
+
+  // END: request가 success로 바뀔떄까지 기다려준다 .
+  context.store.dispatch(END)
+  // console.log('getServerSideProps end')
+  await context.store.sagaTask.toPromise()
+})
 
 export default Home
