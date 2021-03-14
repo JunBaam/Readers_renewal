@@ -12,6 +12,7 @@ export const SearchbookInfo = styled.div`
   position: relative;
   justify-content: space-between;
   min-height: 400px;
+  background-color: white;
 
   & > div img {
     width: 270px;
@@ -62,7 +63,7 @@ export const SearchBookText = styled.div`
 export const ReviewWriteWapper = styled.div`
   margin-top: 10px;
   padding-top: 10px;
-
+  background-color: white;
   border: 1px solid #d9d9d9;
 
   & > p {

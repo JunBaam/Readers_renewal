@@ -11,6 +11,7 @@ export const AccountWrapper = styled.div`
   padding: 32px 32px 32px 32px;
   margin: 0 auto;
   margin-top: 60px;
+  background-color: white;
 `
 
 export const FormWrapper = styled.form`

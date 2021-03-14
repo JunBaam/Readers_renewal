@@ -10,7 +10,7 @@ import {
 const OneReview = post => {
   return (
     <ReviewWriteFormWrapper>
-      <SearchbookInfo>
+      {/* <SearchbookInfo>
         <div>
           <img
             src={!post.thumbnail ? '../no_image.jpg' : post.thumbnail}
@@ -27,7 +27,7 @@ const OneReview = post => {
           <h3>책소개</h3>
           <div>{post.bookinfo}</div>
         </SearchBookText>
-      </SearchbookInfo>
+      </SearchbookInfo> */}
 
       {/* 사용자 리뷰 */}
       <UserReviewWrapper>

@@ -5,9 +5,11 @@ import { useSelector } from 'react-redux'
 
 const NavLayout = styled.div`
   display: flex;
-  justify-content: space-between;
   height: 50px;
+  justify-content: space-evenly;
   cursor: pointer;
+  background-color: white;
+  padding: 0 15% 0 15%;
 
   & > img {
     width: 210px;
