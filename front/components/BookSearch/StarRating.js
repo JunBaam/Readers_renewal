@@ -3,9 +3,7 @@ import styled from 'styled-components'
 
 const StarWrapper = styled.span`
   cursor: pointer;
-
-  width: 40px;
-  margin: 0px 0 10px 20px;
+  line-height: 0;
 `
 
 const StarRating = ({ value, inactiveColor, size, activeColor, onChange }) => {
@@ -16,25 +14,25 @@ const StarRating = ({ value, inactiveColor, size, activeColor, onChange }) => {
   })
 
   return (
-    <StarWrapper>
+    <>
       {stars.map((s, index) => {
         let style = inactiveColor
         if (index < value) {
           style = activeColor
         }
         return (
-          <span
+          <StarWrapper
             key={index}
             style={{ color: style, fontSize: size }}
             onClick={() => handleChange(index)}
           >
             {s}
-          </span>
+          </StarWrapper>
         )
       })}
 
       {value}
-    </StarWrapper>
+    </>
   )
 }
 

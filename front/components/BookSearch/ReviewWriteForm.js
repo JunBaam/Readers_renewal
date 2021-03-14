@@ -139,13 +139,15 @@ const ReviewWriteForm = props => {
         </ReviewCategory>
 
         <p>평점</p>
-        <StarRating
-          size={35}
-          value={rating}
-          activeColor={'#FADB14'}
-          inactiveColor={'#ddd'}
-          onChange={ratingHandler}
-        />
+        <span>
+          <StarRating
+            size={35}
+            value={rating}
+            activeColor={'#FADB14'}
+            inactiveColor={'#ddd'}
+            onChange={ratingHandler}
+          />
+        </span>
 
         <p>도서리뷰내용</p>
         <ReviewInput>
