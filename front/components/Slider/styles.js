@@ -19,18 +19,16 @@ export const SlideActive = styled.div`
 export const SlideInfo = styled.div`
   display: flex;
   height: 50vh;
-  width: 700px;
+  width: 680px;
 
   & > img {
     cursor: pointer;
     flex: 0 0 40%;
     object-fit: fill;
     height: 320px;
-    padding: 10px;
+    margin: 10px 10px 10px 10px;
     width: 300px;
-    margin-top: 10px;
-    margin-left: 20px;
-    border: 1px solid #ffd5b4;
+    border: 1px solid #d9d9d9;
     border-radius: 5px;
   }
 `

@@ -9,6 +9,10 @@ import wrapper from '../store/configureStore'
 import axios from 'axios'
 import { END } from 'redux-saga'
 
+const HomeWrapper = styled.div`
+  background-color: white;
+`
+
 const HomeTitleWrapper = styled.div`
   display: flex;
   margin: 20px 0px;
@@ -22,6 +26,9 @@ const HomeTitleWrapper = styled.div`
 `
 const HomeMidWrapper = styled.div`
   display: flex;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px 0px 10px 0px;
 `
 const PostCardWrapper = styled.div`
   flex: 0 0 62%;
@@ -40,25 +47,27 @@ const RankWrapper = styled.div`
 
 const Home = () => {
   return (
-    <AppLayout>
-      <Slider />
+    <HomeWrapper>
+      <AppLayout>
+        <Slider />
 
-      {/* Todo: 바꿔야됨 */}
-      <HomeTitleWrapper>
-        <div>리뷰목록 </div>
-        <div>인기 리뷰목록</div>
-      </HomeTitleWrapper>
+        {/* Todo: 바꿔야됨 */}
+        <HomeTitleWrapper>
+          <div>리뷰목록 </div>
+          <div>인기 리뷰목록</div>
+        </HomeTitleWrapper>
 
-      <HomeMidWrapper>
-        <PostCardWrapper>
-          <PostCard />
-        </PostCardWrapper>
+        <HomeMidWrapper>
+          <PostCardWrapper>
+            <PostCard />
+          </PostCardWrapper>
 
-        <RankWrapper>
-          <Rank />
-        </RankWrapper>
-      </HomeMidWrapper>
-    </AppLayout>
+          <RankWrapper>
+            <Rank />
+          </RankWrapper>
+        </HomeMidWrapper>
+      </AppLayout>
+    </HomeWrapper>
   )
 }
 export const getServerSideProps = wrapper.getServerSideProps(async context => {

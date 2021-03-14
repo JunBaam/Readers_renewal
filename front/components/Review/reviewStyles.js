@@ -8,16 +8,17 @@ export const ReviewListContainer = styled.div`
   width: 300px;
   margin: 0 10px 20px 10px;
   cursor: pointer;
-  border: 1px solid #d9d9d9;
   border-radius: 7px;
   position: relative;
+  background-color: white;
 
   & > img {
-    padding-top: 10px;
-    width: 220px;
-    height: 260px;
-    margin: 0 auto;
+    width: 210px;
+    height: 230px;
+    margin: 10px auto;
     border-radius: 5px;
+
+    border: 1px solid #d9d9d9;
   }
   & > img:hover {
     transition: all 0.3s ease-in-out;
