@@ -42,6 +42,10 @@ const Review = () => {
         rating={onePost.rating}
         author={onePost.author}
         publisher={onePost.publisher}
+        category={onePost.category}
+        user={onePost.User}
+        content={onePost.content}
+        createdAt={onePost.createdAt}
       />
     </AppLayout>
   )

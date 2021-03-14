@@ -69,7 +69,10 @@ export const ReviewWriteWapper = styled.div`
   & > p {
     font-size: 20px;
     font-weight: 700;
-    margin: 10px 0 0px 20px;
+    margin: 10px 0 10px 20px;
+  }
+  & > span {
+    margin-left: 17px;
   }
 `
 // 카테고리 목록
