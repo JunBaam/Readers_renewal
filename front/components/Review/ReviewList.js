@@ -32,7 +32,7 @@ const ReviewList = ({ post }) => {
   return (
     <ReviewListContainer>
       <Link href="/review/[id]" as={`/review/${post.id}`}>
-        <img src={post.image_url} />
+        <img src={!post.image_url ? '../no_image.jpg' : post.image_url} />
       </Link>
       <HeartIcon>
         {liked ? (
