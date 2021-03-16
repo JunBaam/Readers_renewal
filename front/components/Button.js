@@ -15,7 +15,7 @@ const ButtonWrapper = styled.button`
   text-align: center;
 
   height: 40px;
-  margin-top: 15px;
+
   border-radius: 5px;
 
   ${props =>

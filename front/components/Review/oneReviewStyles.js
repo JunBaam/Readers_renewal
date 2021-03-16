@@ -9,6 +9,7 @@ export const ReviewWriteFormWrapper = styled.form`
 `
 //검색한 책정보
 export const SearchbookInfo = styled.div`
+  height: 700px;
   text-align: center;
   padding: 10px 10px 10px 10px;
   background-color: white;

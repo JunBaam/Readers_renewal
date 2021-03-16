@@ -17,6 +17,15 @@ import {
   UNLIKE_POST_FAILURE,
   UNLIKE_POST_REQUEST,
   UNLIKE_POST_SUCCESS,
+  LIKE_ONEPOST_REQUEST,
+  UNLIKE_ONEPOST_REQUEST,
+  UNLIKE_ONEPOST_SUCCESS,
+  UNLIKE_ONEPOST_FAILURE,
+  LIKE_ONEPOST_FAILURE,
+  LIKE_ONEPOST_SUCCESS,
+  ADD_COMMENT_FAILURE,
+  ADD_COMMENT_REQUEST,
+  ADD_COMMENT_SUCCESS,
 } from '../reducers/post'
 import { ADD_POST_TO_ME } from '../reducers/user'
 
@@ -123,6 +132,66 @@ function* unlikePost(action) {
   }
 }
 
+function likeOnePostAPI(data) {
+  return axios.patch(`/post/${data}/like`)
+}
+
+function* likeOnePost(action) {
+  try {
+    const result = yield call(likeOnePostAPI, action.data)
+    yield put({
+      type: LIKE_ONEPOST_SUCCESS,
+      data: result.data,
+    })
+  } catch (err) {
+    console.error(err)
+    yield put({
+      type: LIKE_ONEPOST_FAILURE,
+      error: err.response.data,
+    })
+  }
+}
+
+function unlikeOnePostAPI(data) {
+  return axios.delete(`/post/${data}/like`)
+}
+
+function* unlikeOnePost(action) {
+  try {
+    const result = yield call(unlikeOnePostAPI, action.data)
+    yield put({
+      type: UNLIKE_ONEPOST_SUCCESS,
+      data: result.data,
+    })
+  } catch (err) {
+    console.error(err)
+    yield put({
+      type: UNLIKE_ONEPOST_FAILURE,
+      error: err.response.data,
+    })
+  }
+}
+
+function addCommentAPI(data) {
+  return axios.post(`/post/${data.postId}/comment`, data)
+}
+
+function* addComment(action) {
+  try {
+    const result = yield call(addCommentAPI, action.data)
+    yield put({
+      type: ADD_COMMENT_SUCCESS,
+      data: result.data,
+    })
+  } catch (err) {
+    console.error(err)
+    yield put({
+      type: ADD_COMMENT_FAILURE,
+      data: err.response.data,
+    })
+  }
+}
+
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost)
 }
@@ -142,6 +211,18 @@ function* watchUnlikePost() {
   yield takeLatest(UNLIKE_POST_REQUEST, unlikePost)
 }
 
+function* watchLikeOnePost() {
+  yield takeLatest(LIKE_ONEPOST_REQUEST, likeOnePost)
+}
+
+function* watchUnlikeOnePost() {
+  yield takeLatest(UNLIKE_ONEPOST_REQUEST, unlikeOnePost)
+}
+
+function* watchAddComment() {
+  yield takeLatest(ADD_COMMENT_REQUEST, addComment)
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
@@ -149,5 +230,8 @@ export default function* postSaga() {
     fork(watchLoadPost),
     fork(watchLikePost),
     fork(watchUnlikePost),
+    fork(watchLikeOnePost),
+    fork(watchUnlikeOnePost),
+    fork(watchAddComment),
   ])
 }

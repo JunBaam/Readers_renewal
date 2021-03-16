@@ -116,4 +116,37 @@ router.delete('/:postId/like', async (req, res, next) => {
   }
 })
 
+// 댓글추가
+// POST /post/:postId/comment
+router.post('/:postId/comment', async (req, res, next) => {
+  try {
+    const post = await Post.findOne({
+      where: { id: req.params.postId },
+    })
+    if (!post) {
+      return res.status(403).send('존재하지 않는 게시글입니다.')
+    }
+    // req.params 는 문자열로 받아온다 !!!!!
+    //  int로 바꿔줄것
+    const comment = await Comment.create({
+      content: req.body.content,
+      PostId: parseInt(req.params.postId, 10),
+      UserId: req.user.id,
+    })
+    const fullComment = await Comment.findOne({
+      where: { id: comment.id },
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'nickname'],
+        },
+      ],
+    })
+    res.status(201).json(fullComment)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
 module.exports = router

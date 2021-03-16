@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import StarRating from '../BookSearch/StarRating'
 import { timeForToday } from '../../utils/timeCheck'
 import {
@@ -10,36 +10,52 @@ import {
   HeartIcon,
   ReplyIcon,
 } from './oneReviewStyles'
+import { CommentWrapper } from './commentStyle'
 import {
   AiOutlineHeart,
   AiTwotoneHeart,
   AiOutlineMessage,
 } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
-import { LIKE_POST_REQUEST, UNLIKE_POST_REQUEST } from '../../reducers/post'
+import {
+  LIKE_ONEPOST_REQUEST,
+  UNLIKE_ONEPOST_REQUEST,
+} from '../../reducers/post'
+import CommentForm from './CommentForm'
+import Comment from './Comment'
 
 const OneReview = post => {
   const dispatch = useDispatch()
   const id = useSelector(state => state.user.me && state.user.me.id)
+  const [commentFormOpened, setCommentFormOpened] = useState(false)
+
+  const liked = post.likers.find(v => v.id === id)
+
+  useEffect(() => {
+    console.log(post.comments)
+  }, [])
 
   const onLike = useCallback(() => {
     dispatch({
-      type: LIKE_POST_REQUEST,
+      type: LIKE_ONEPOST_REQUEST,
       data: post.id,
     })
   }, [])
   const onUnLike = useCallback(() => {
     dispatch({
-      type: UNLIKE_POST_REQUEST,
+      type: UNLIKE_ONEPOST_REQUEST,
       data: post.id,
     })
   }, [])
 
-  const liked = ''
-  // post.Likers.find(v => v.id === id)
   const ratingHandler = () => {
     return null
   }
+
+  const onToggleComment = useCallback(() => {
+    setCommentFormOpened(prev => !prev)
+  }, [])
+
   return (
     <ReviewWriteFormWrapper>
       <SearchbookInfo>
@@ -66,7 +82,6 @@ const OneReview = post => {
           '{post.user.nickname}' 님의 리뷰
           <span>#{post.category}</span>
         </p>
-
         <UserReviewContent>
           <div>
             <StarRating
@@ -80,7 +95,6 @@ const OneReview = post => {
           <p>{post.content}</p>
           <span>{timeForToday(post.createdAt)}</span>
         </UserReviewContent>
-
         <HeartIcon>
           {liked ? (
             <AiTwotoneHeart color="orangered" key="like" onClick={onUnLike} />
@@ -88,10 +102,23 @@ const OneReview = post => {
             <AiOutlineHeart key="unlike" onClick={onLike} />
           )}
         </HeartIcon>
-
         <ReplyIcon>
-          <AiOutlineMessage />
+          <AiOutlineMessage onClick={onToggleComment} />
         </ReplyIcon>
+
+        {commentFormOpened && (
+          <CommentWrapper>
+            <CommentForm id={post.id} />
+            {post.comments.map((comment, index) => (
+              <Comment
+                key={index}
+                nickname={comment.User.nickname}
+                content={comment.content}
+                date={timeForToday(comment.createdAt)}
+              />
+            ))}
+          </CommentWrapper>
+        )}
       </UserReviewWrapper>
     </ReviewWriteFormWrapper>
   )
