@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import dummyData from './Slider/sliderData'
 
 const RankWrapper = styled.div`
@@ -28,7 +27,6 @@ const RankWrapper = styled.div`
     border-radius: 5px;
   }
 `
-
 const RankText = styled.span`
   font-size: 13px;
   font-weight: 400;
@@ -54,7 +52,6 @@ const RankText = styled.span`
     text-decoration: underline solid black;
   }
 `
-
 const Rank = () => {
   return (
     <>

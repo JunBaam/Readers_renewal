@@ -5,6 +5,10 @@ import Head from 'next/head'
 import ReviewList from '../components/Review/ReviewList'
 import styled from 'styled-components'
 import { LOAD_POSTS_REQUEST } from '../reducers/post'
+import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
+import wrapper from '../store/configureStore'
+import axios from 'axios'
+import { END } from 'redux-saga'
 
 const ReviewListHeader = styled.div`
   display: flex;
@@ -58,5 +62,18 @@ const reviewList = () => {
     </AppLayout>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async context => {
+  const cookie = context.req ? context.req.headers.cookie : ''
+  axios.defaults.headers.Cookie = ''
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie
+  }
+  context.store.dispatch({
+    type: LOAD_MY_INFO_REQUEST,
+  })
+  context.store.dispatch(END)
+  await context.store.sagaTask.toPromise()
+})
 
 export default reviewList

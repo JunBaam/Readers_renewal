@@ -7,7 +7,6 @@ import { LOAD_POST_REQUEST } from '../../reducers/post'
 import { END } from 'redux-saga'
 import Head from 'next/head'
 import AppLayout from '../../components/Layout/AppLayout'
-import styled from 'styled-components'
 import OneReview from '../../components/Review/OneReview'
 
 const Review = () => {
@@ -46,7 +45,6 @@ const Review = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
   const cookie = context.req ? context.req.headers.cookie : ''
-  console.log(context)
   axios.defaults.headers.Cookie = ''
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie

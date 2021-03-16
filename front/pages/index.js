@@ -12,7 +12,6 @@ import { END } from 'redux-saga'
 const HomeWrapper = styled.div`
   background-color: white;
 `
-
 const HomeTitleWrapper = styled.div`
   display: flex;
   margin: 20px 0px;
