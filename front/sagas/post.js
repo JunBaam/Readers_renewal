@@ -29,13 +29,15 @@ import {
 } from '../reducers/post'
 import { ADD_POST_TO_ME } from '../reducers/user'
 
-function loadPostsAPI(data) {
-  return axios.get('/posts', data)
+function loadPostsAPI(lastId) {
+  // get에 데이터를 넣으려면 쿼리스트링 사용!
+  //  lastId가 undifine 이면 0으로 만듬.
+  return axios.get(`/posts?lastId=${lastId || 0}`)
 }
 
 function* loadPosts(action) {
   try {
-    const result = yield call(loadPostsAPI, action.data)
+    const result = yield call(loadPostsAPI, action.lastId)
     yield put({
       type: LOAD_POSTS_SUCCESS,
       data: result.data,
@@ -64,7 +66,7 @@ function* loadPost(action) {
     console.error(err)
     yield put({
       type: LOAD_POST_FAILURE,
-      error: err.response.data,
+      data: err.response.data,
     })
   }
 }

@@ -36,10 +36,25 @@ const reviewList = () => {
   )
 
   useEffect(() => {
-    dispatch({
-      type: LOAD_POSTS_REQUEST,
-    })
-  }, [])
+    function onScroll() {
+      if (
+        window.pageYOffset + document.documentElement.clientHeight >
+        document.documentElement.scrollHeight - 300
+      ) {
+        if (hasMorePosts && !loadPostsLoading) {
+          const lastId = mainPosts[mainPosts.length - 1]?.id
+          dispatch({
+            type: LOAD_POSTS_REQUEST,
+            lastId,
+          })
+        }
+      }
+    }
+    window.addEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [mainPosts, hasMorePosts, loadPostsLoading])
 
   return (
     <AppLayout>
@@ -71,6 +86,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   }
   context.store.dispatch({
     type: LOAD_MY_INFO_REQUEST,
+  })
+  context.store.dispatch({
+    type: LOAD_POSTS_REQUEST,
   })
   context.store.dispatch(END)
   await context.store.sagaTask.toPromise()
