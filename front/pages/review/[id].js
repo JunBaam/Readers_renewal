@@ -22,17 +22,8 @@ const Review = () => {
         <title>{onePost.User.nickname}님의 후기</title>
       </Head>
 
-      {/* title: props.title,
-          bookinfo: props.contents,
-          author: props.author.toString(),
-          publisher: props.publisher,
-          price: props.price,
-          date: props.datetime,
-          image_url: props.thumbnail,
-          category: categoryValue,
-          rating: rating,
-          content: text, */}
       <OneReview
+        id={onePost.id}
         thumbnail={onePost.image_url}
         title={onePost.title}
         bookinfo={onePost.bookinfo}
@@ -46,6 +37,8 @@ const Review = () => {
         user={onePost.User}
         content={onePost.content}
         createdAt={onePost.createdAt}
+        likers={onePost.Likers}
+        comments={onePost.Comments}
       />
     </AppLayout>
   )

@@ -19,6 +19,9 @@ export const initialState = {
   unlikePostLoading: false, //좋아요취소
   unlikePostDone: false,
   unlikePostError: null,
+  addCommentLoading: false, // 댓글추가
+  addCommentDone: false,
+  addCommentError: null,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST'
@@ -40,6 +43,18 @@ export const LIKE_POST_FAILURE = 'LIKE_POST_FAILURE'
 export const UNLIKE_POST_REQUEST = 'UNLIKE_POST_REQUEST'
 export const UNLIKE_POST_SUCCESS = 'UNLIKE_POST_SUCCESS'
 export const UNLIKE_POST_FAILURE = 'UNLIKE_POST_FAILURE'
+
+export const LIKE_ONEPOST_REQUEST = 'LIKE_ONEPOST_REQUEST'
+export const LIKE_ONEPOST_SUCCESS = 'LIKE_ONEPOST_SUCCESS'
+export const LIKE_ONEPOST_FAILURE = 'LIKE_ONEPOST_FAILURE'
+
+export const UNLIKE_ONEPOST_REQUEST = 'UNLIKE_ONEPOST_REQUEST'
+export const UNLIKE_ONEPOST_SUCCESS = 'UNLIKE_ONEPOST_SUCCESS'
+export const UNLIKE_ONEPOST_FAILURE = 'UNLIKE_ONEPOST_FAILURE'
+
+export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST'
+export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS'
+export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE'
 
 const reducer = (state = initialState, action) => {
   return produce(state, draft => {
@@ -124,6 +139,54 @@ const reducer = (state = initialState, action) => {
       case UNLIKE_POST_FAILURE:
         draft.unlikePostLoading = false
         draft.unlikePostError = action.error
+        break
+
+      case LIKE_ONEPOST_REQUEST:
+        draft.likePostLoading = true
+        draft.likePostDone = false
+        draft.likePostError = null
+        break
+      case LIKE_ONEPOST_SUCCESS: {
+        draft.onePost.Likers.push({ id: action.data.UserId })
+        draft.likePostLoading = false
+        draft.likePostDone = true
+        break
+      }
+      case LIKE_ONEPOST_FAILURE:
+        draft.likePostLoading = false
+        draft.likePostError = action.error
+        break
+
+      case UNLIKE_ONEPOST_REQUEST:
+        draft.unlikePostLoading = true
+        draft.unlikePostDone = false
+        draft.unlikePostError = null
+        break
+      case UNLIKE_ONEPOST_SUCCESS: {
+        draft.onePost.Likers.pop(action.data.UserId)
+        draft.unlikePostLoading = false
+        draft.unlikePostDone = true
+        break
+      }
+      case UNLIKE_ONEPOST_FAILURE:
+        draft.unlikePostLoading = false
+        draft.unlikePostError = action.error
+        break
+
+      case ADD_COMMENT_REQUEST:
+        draft.addCommentLoading = true
+        draft.addCommentDone = false
+        draft.addCommentError = null
+        break
+      case ADD_COMMENT_SUCCESS: {
+        draft.onePost.Comments.unshift(action.data)
+        draft.addCommentLoading = false
+        draft.addCommentDone = true
+        break
+      }
+      case ADD_COMMENT_FAILURE:
+        draft.addCommentLoading = false
+        draft.addCommentError = action.error
         break
 
       default:
