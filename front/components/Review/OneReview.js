@@ -9,31 +9,39 @@ import {
   UserReviewContent,
   HeartIcon,
   ReplyIcon,
+  EllipsisIcon,
+  UpdateDeleteWarpper,
 } from './oneReviewStyles'
 import { CommentWrapper } from './commentStyle'
 import {
   AiOutlineHeart,
   AiTwotoneHeart,
   AiOutlineMessage,
+  AiOutlineEllipsis,
 } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   LIKE_ONEPOST_REQUEST,
   UNLIKE_ONEPOST_REQUEST,
+  REMOVE_POST_REQUEST,
 } from '../../reducers/post'
 import CommentForm from './CommentForm'
 import Comment from './Comment'
+import Router from 'next/router'
 
 const OneReview = post => {
   const dispatch = useDispatch()
   const id = useSelector(state => state.user.me && state.user.me.id)
-  const [commentFormOpened, setCommentFormOpened] = useState(false)
-
+  const { removePostDone } = useSelector(state => state.post)
+  const [commentFormOpen, setCommentFormOpen] = useState(false)
+  const [updateDeleteOpen, setUpdateDeleteOpen] = useState(false)
   const liked = post.likers.find(v => v.id === id)
 
   useEffect(() => {
-    console.log(post.comments)
-  }, [])
+    if (removePostDone) {
+      Router.replace('/reviewList')
+    }
+  }, [removePostDone])
 
   const onLike = useCallback(() => {
     dispatch({
@@ -53,9 +61,19 @@ const OneReview = post => {
   }
 
   const onToggleComment = useCallback(() => {
-    setCommentFormOpened(prev => !prev)
+    setCommentFormOpen(prev => !prev)
   }, [])
 
+  const onToggleUpdateDelete = useCallback(() => {
+    setUpdateDeleteOpen(prev => !prev)
+  }, [])
+
+  const onRemovePost = useCallback(() => {
+    dispatch({
+      type: REMOVE_POST_REQUEST,
+      data: post.id,
+    })
+  }, [])
   return (
     <ReviewWriteFormWrapper>
       <SearchbookInfo>
@@ -63,7 +81,6 @@ const OneReview = post => {
           src={!post.thumbnail ? '../no_image.jpg' : post.thumbnail}
           alt={post.title}
         />
-
         <SearchBookText>
           <p>{post.title}</p>
           <h5>저자 : {post.author}</h5>
@@ -105,8 +122,22 @@ const OneReview = post => {
         <ReplyIcon>
           <AiOutlineMessage onClick={onToggleComment} />
         </ReplyIcon>
+        {id && post.user.id === id ? (
+          <EllipsisIcon>
+            <AiOutlineEllipsis fontSize="30px" onClick={onToggleUpdateDelete} />
+          </EllipsisIcon>
+        ) : (
+          ''
+        )}
+        {updateDeleteOpen && (
+          <UpdateDeleteWarpper>
+            <span>수정</span>
 
-        {commentFormOpened && (
+            <span onClick={onRemovePost}>삭제</span>
+          </UpdateDeleteWarpper>
+        )}
+
+        {commentFormOpen && (
           <CommentWrapper>
             <CommentForm id={post.id} />
             {post.comments.map((comment, index) => (

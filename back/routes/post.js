@@ -85,6 +85,23 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+//게시글삭제
+//DELETE /post /1
+router.delete('/:postId', async (req, res, next) => {
+  try {
+    await Post.destroy({
+      where: {
+        id: req.params.postId,
+        UserId: req.user.id,
+      },
+    })
+    res.status(200).json({ PostId: parseInt(req.params.postId, 10) })
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
 // PATCH /post/:postId/like
 router.patch('/:postId/like', async (req, res, next) => {
   try {

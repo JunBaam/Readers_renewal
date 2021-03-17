@@ -34,6 +34,7 @@ export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE'
 
 // 유저 리듀서의 상태를 바꾸는 액션.
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME'
+export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME'
 
 export const loginRequestAction = data => ({
   type: LOG_IN_REQUEST,
@@ -120,6 +121,10 @@ const reducer = (state = initialState, action) => {
       case ADD_POST_TO_ME:
         draft.me.Posts.unshift({ id: action.data })
         break
+      case REMOVE_POST_OF_ME:
+        draft.me.Posts = draft.me.Posts.filter(v => v.id !== action.data)
+        break
+
       default:
         break
     }

@@ -6,13 +6,16 @@ export const initialState = {
   addPostLoading: false, //게시글추가
   addPostDone: false,
   addPostError: null,
+  removePostLoading: false, // 게시글 삭제
+  removePostDone: false,
+  removePostError: null,
   loadPostsLoading: false, //게시물 여러개 불러오기
   loadPostsDone: false,
   loadPostsError: null,
+  hasMorePosts: true, //게시물 추가로 불러오기
   loadPostLoading: false, //단일 게시물 불러오기
   loadPostDone: false,
   loadPostError: null,
-  hasMorePosts: true, //게시물 추가로 불러오기
   likePostLoading: false, //좋아요
   likePostDone: false,
   likePostError: null,
@@ -27,6 +30,10 @@ export const initialState = {
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST'
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS'
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE'
+
+export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST'
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS'
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE'
 
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST'
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS'
@@ -74,6 +81,25 @@ const reducer = (state = initialState, action) => {
       case ADD_POST_FAILURE:
         draft.addPostLoading = false
         draft.addPostError = action.error
+        break
+
+      case REMOVE_POST_REQUEST:
+        draft.removePostLoading = true
+        draft.removePostDone = false
+        draft.removePostError = null
+        break
+
+      case REMOVE_POST_SUCCESS:
+        draft.removePostLoading = false
+        draft.removePostDone = true
+        draft.mainPosts = draft.mainPosts.filter(
+          v => v.id !== action.data.PostId
+        )
+        break
+
+      case REMOVE_POST_FAILURE:
+        draft.removePostLoading = false
+        draft.removePostError = action.error
         break
 
       case LOAD_POSTS_REQUEST:

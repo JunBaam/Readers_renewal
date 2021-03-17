@@ -42,7 +42,7 @@ const Navbar = () => {
         </Link>
       </div>
       <SearchWrapper>
-        <Link href="/search">
+        <Link href="/reviewWrite">
           <span>도서검색 / 후기작성</span>
         </Link>
       </SearchWrapper>
