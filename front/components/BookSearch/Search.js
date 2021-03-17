@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { kakaoRequest } from './kakaoRequest'
 import SearchItem from './SearchItem'
-
 import { SearchContainer, SearchInput, SearchResult } from './searchStyles'
 
 const Search = () => {

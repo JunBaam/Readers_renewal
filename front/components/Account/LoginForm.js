@@ -4,7 +4,6 @@ import { FormWrapper, InputWarrper } from './accountStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginRequestAction } from '../../reducers/user'
 import useInput from '../../custom_hooks/useInput'
-import Link from 'next/link'
 import Router from 'next/router'
 
 const LoginForm = () => {

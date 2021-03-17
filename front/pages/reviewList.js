@@ -35,6 +35,10 @@ const reviewList = () => {
     state => state.post
   )
 
+  if (!mainPosts && !hasMorePosts) {
+    console.log('없다')
+    return null
+  }
   useEffect(() => {
     function onScroll() {
       if (
@@ -42,6 +46,7 @@ const reviewList = () => {
         document.documentElement.scrollHeight - 300
       ) {
         if (hasMorePosts && !loadPostsLoading) {
+          // 마지막 id
           const lastId = mainPosts[mainPosts.length - 1]?.id
           dispatch({
             type: LOAD_POSTS_REQUEST,
@@ -54,7 +59,7 @@ const reviewList = () => {
     return () => {
       window.removeEventListener('scroll', onScroll)
     }
-  }, [mainPosts, hasMorePosts, loadPostsLoading])
+  }, [hasMorePosts, loadPostsLoading, mainPosts])
 
   return (
     <AppLayout>

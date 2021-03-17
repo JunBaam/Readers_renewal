@@ -76,7 +76,7 @@ export const UserReviewWrapper = styled.div`
   & > p {
     font-size: 22px;
     font-weight: 500;
-    margin: 20px 0 0px 10px;
+    margin: 0 0 0 10px;
   }
 
   & > p span {
@@ -116,4 +116,18 @@ export const ReplyIcon = styled.span`
   font-size: 30px;
   margin-left: 15px;
   cursor: pointer;
+`
+export const EllipsisIcon = styled.span`
+  cursor: pointer;
+  margin-left: 15px;
+`
+
+export const UpdateDeleteWarpper = styled.span`
+  margin-left: 10px;
+
+  & > span {
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+  }
 `
