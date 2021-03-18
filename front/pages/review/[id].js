@@ -34,7 +34,6 @@ const Review = () => {
         publisher={onePost.publisher}
         category={onePost.category}
         user={onePost.User}
-        content={onePost.content}
         createdAt={onePost.createdAt}
         likers={onePost.Likers}
         comments={onePost.Comments}

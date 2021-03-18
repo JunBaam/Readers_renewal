@@ -74,7 +74,6 @@ const ReviewWriteForm = props => {
         return alert('게시글을 작성해주세요')
       }
       let categoryValue = category.activeObject.category
-      console.log('카테고리', categoryValue)
 
       // 제목,책정보,저자,작성자,가격,출판일,카테고리,별점,이미지,후기내용  10개
       return dispatch({

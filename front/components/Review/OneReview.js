@@ -6,6 +6,7 @@ import {
   SearchBookText,
   ReviewWriteFormWrapper,
   UserReviewWrapper,
+  UserReviewUpdateWrapper,
   UserReviewContent,
   HeartIcon,
   ReplyIcon,
@@ -28,6 +29,7 @@ import {
 import CommentForm from './CommentForm'
 import Comment from './Comment'
 import Router from 'next/router'
+import ReviewUpdateForm from './ReviewUpdateForm'
 
 const OneReview = post => {
   const dispatch = useDispatch()
@@ -35,6 +37,7 @@ const OneReview = post => {
   const { removePostDone } = useSelector(state => state.post)
   const [commentFormOpen, setCommentFormOpen] = useState(false)
   const [updateDeleteOpen, setUpdateDeleteOpen] = useState(false)
+  const [editMode, setEditMode] = useState(false)
   const liked = post.likers.find(v => v.id === id)
 
   useEffect(() => {
@@ -49,6 +52,7 @@ const OneReview = post => {
       data: post.id,
     })
   }, [])
+
   const onUnLike = useCallback(() => {
     dispatch({
       type: UNLIKE_ONEPOST_REQUEST,
@@ -74,6 +78,11 @@ const OneReview = post => {
       data: post.id,
     })
   }, [])
+
+  const onChangePost = useCallback(() => {
+    setEditMode(true)
+  }, [])
+
   return (
     <ReviewWriteFormWrapper>
       <SearchbookInfo>
@@ -92,65 +101,75 @@ const OneReview = post => {
           <div>{post.bookinfo}</div>
         </SearchBookText>
       </SearchbookInfo>
-
-      {/* 사용자 리뷰 */}
-      <UserReviewWrapper>
-        <p>
-          '{post.user.nickname}' 님의 리뷰
-          <span>#{post.category}</span>
-        </p>
-        <UserReviewContent>
-          <div>
-            <StarRating
-              size={35}
-              value={post.rating}
-              activeColor={'#FADB14'}
-              inactiveColor={'#ddd'}
-              onChange={ratingHandler}
-            />
-          </div>
-          <p>{post.content}</p>
-          <span>{timeForToday(post.createdAt)}</span>
-        </UserReviewContent>
-        <HeartIcon>
-          {liked ? (
-            <AiTwotoneHeart color="orangered" key="like" onClick={onUnLike} />
-          ) : (
-            <AiOutlineHeart key="unlike" onClick={onLike} />
-          )}
-        </HeartIcon>
-        <ReplyIcon>
-          <AiOutlineMessage onClick={onToggleComment} />
-        </ReplyIcon>
-        {id && post.user.id === id ? (
-          <EllipsisIcon>
-            <AiOutlineEllipsis fontSize="30px" onClick={onToggleUpdateDelete} />
-          </EllipsisIcon>
-        ) : (
-          ''
-        )}
-        {updateDeleteOpen && (
-          <UpdateDeleteWarpper>
-            <span>수정</span>
-
-            <span onClick={onRemovePost}>삭제</span>
-          </UpdateDeleteWarpper>
-        )}
-
-        {commentFormOpen && (
-          <CommentWrapper>
-            <CommentForm id={post.id} />
-            {post.comments.map((comment, index) => (
-              <Comment
-                key={index}
-                nickname={comment.User.nickname}
-                content={comment.content}
-                date={timeForToday(comment.createdAt)}
+      {/********************************
+       *          사용자 리뷰
+       *********************************/}
+      {editMode ? (
+        <UserReviewUpdateWrapper>
+          <ReviewUpdateForm setEditMode={setEditMode} />
+        </UserReviewUpdateWrapper>
+      ) : (
+        <UserReviewWrapper>
+          <p>
+            '{post.user.nickname}' 님의 리뷰
+            <span>#{post.category}</span>
+          </p>
+          <UserReviewContent>
+            <div>
+              <StarRating
+                size={35}
+                value={post.rating}
+                activeColor={'#FADB14'}
+                inactiveColor={'#ddd'}
+                onChange={ratingHandler}
               />
-            ))}
-          </CommentWrapper>
-        )}
-      </UserReviewWrapper>
+            </div>
+            <p>{post.content}</p>
+
+            <span>{timeForToday(post.createdAt)}</span>
+          </UserReviewContent>
+          <HeartIcon>
+            {liked ? (
+              <AiTwotoneHeart color="orangered" key="like" onClick={onUnLike} />
+            ) : (
+              <AiOutlineHeart key="unlike" onClick={onLike} />
+            )}
+          </HeartIcon>
+          <ReplyIcon>
+            <AiOutlineMessage onClick={onToggleComment} />
+          </ReplyIcon>
+          {id && post.user.id === id ? (
+            <EllipsisIcon>
+              <AiOutlineEllipsis
+                fontSize="30px"
+                onClick={onToggleUpdateDelete}
+              />
+            </EllipsisIcon>
+          ) : (
+            ''
+          )}
+          {updateDeleteOpen && (
+            <UpdateDeleteWarpper>
+              <span onClick={onChangePost}>수정</span>
+              <span onClick={onRemovePost}>삭제</span>
+            </UpdateDeleteWarpper>
+          )}
+
+          {commentFormOpen && (
+            <CommentWrapper>
+              <CommentForm id={post.id} />
+              {post.comments.map((comment, index) => (
+                <Comment
+                  key={index}
+                  nickname={comment.User.nickname}
+                  content={comment.content}
+                  date={timeForToday(comment.createdAt)}
+                />
+              ))}
+            </CommentWrapper>
+          )}
+        </UserReviewWrapper>
+      )}
     </ReviewWriteFormWrapper>
   )
 }

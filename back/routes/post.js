@@ -102,6 +102,33 @@ router.delete('/:postId', async (req, res, next) => {
   }
 })
 
+//게시글수정
+//PATCH /post /1
+router.patch('/:postId', async (req, res, next) => {
+  try {
+    await Post.update(
+      {
+        content: req.body.content,
+        rating: req.body.rating,
+        category: req.body.category,
+      },
+      {
+        where: {
+          id: req.params.postId,
+          UserId: req.user.id,
+        },
+      }
+    )
+    res.status(200).json({
+      PostId: parseInt(req.params.postId, 10),
+      content: req.body.content,
+    })
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
 // PATCH /post/:postId/like
 router.patch('/:postId/like', async (req, res, next) => {
   try {
