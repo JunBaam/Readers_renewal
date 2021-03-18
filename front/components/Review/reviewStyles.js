@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { AiOutlineHeart, AiTwotoneHeart } from 'react-icons/ai'
 
 export const ReviewListContainer = styled.div`
   display: flex;

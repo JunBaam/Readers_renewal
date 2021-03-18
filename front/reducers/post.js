@@ -9,6 +9,9 @@ export const initialState = {
   removePostLoading: false, // 게시글 삭제
   removePostDone: false,
   removePostError: null,
+  updatePostLoading: false, // 게시글 수정
+  updatePostDone: false,
+  updatePostError: null,
   loadPostsLoading: false, //게시물 여러개 불러오기
   loadPostsDone: false,
   loadPostsError: null,
@@ -34,6 +37,10 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE'
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST'
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS'
 export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE'
+
+export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST'
+export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
+export const UPDATE_POST_FAILURE = 'UPDATE_POST_FAILURE'
 
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST'
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS'
@@ -75,6 +82,7 @@ const reducer = (state = initialState, action) => {
       case ADD_POST_SUCCESS:
         draft.addPostLoading = false
         draft.addPostDone = true
+        console.log('addPost ', action.data)
         draft.mainPosts.unshift(action.data)
         break
 
@@ -88,7 +96,6 @@ const reducer = (state = initialState, action) => {
         draft.removePostDone = false
         draft.removePostError = null
         break
-
       case REMOVE_POST_SUCCESS:
         draft.removePostLoading = false
         draft.removePostDone = true
@@ -96,10 +103,30 @@ const reducer = (state = initialState, action) => {
           v => v.id !== action.data.PostId
         )
         break
-
       case REMOVE_POST_FAILURE:
         draft.removePostLoading = false
         draft.removePostError = action.error
+        break
+
+      case UPDATE_POST_REQUEST:
+        draft.updatePostLoading = true
+        draft.updatePostDone = false
+        draft.updatePostError = null
+
+        break
+      case UPDATE_POST_SUCCESS:
+        draft.updatePostLoading = false
+        draft.updatePostDone = true
+        draft.onePost.content = action.data.content
+        draft.onePost.category = action.data.category
+        draft.onePost.rating = action.data.rating
+        console.log('리듀서값', action.data)
+
+        break
+
+      case UPDATE_POST_FAILURE:
+        draft.updatePostLoading = false
+        draft.updatePostError = action.error
         break
 
       case LOAD_POSTS_REQUEST:

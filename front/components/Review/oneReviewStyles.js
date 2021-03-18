@@ -64,6 +64,16 @@ export const SearchBookText = styled.div`
 `
 
 // 사용자리뷰 오른쪽
+
+export const UserReviewUpdateWrapper = styled.div`
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 5px 10px 10px 10px;
+  background-color: white;
+  border-radius: 10px;
+  width: 400px;
+  height: 100%;
+`
+
 export const UserReviewWrapper = styled.div`
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
   padding: 10px 10px 10px 20px;
@@ -123,9 +133,8 @@ export const EllipsisIcon = styled.span`
 `
 
 export const UpdateDeleteWarpper = styled.span`
-  margin-left: 10px;
-
   & > span {
+    margin-left: 10px;
     cursor: pointer;
     font-size: 15px;
     font-weight: 600;
