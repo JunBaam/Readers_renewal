@@ -1,8 +1,8 @@
 import React from 'react'
 import Button from '../components/Button'
-import dummyData from './Slider/sliderData'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 const PostCardWrapper = styled.div`
   cursor: pointer;
@@ -23,52 +23,39 @@ const PostCardWrapper = styled.div`
     margin: 0;
     font-size: 16px;
     font-weight: 500;
+    width: 160px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   & > div h5 {
+    width: 160px;
     margin: 0;
     font-weight: 500;
     font-size: 11px;
     color: #a19f9e;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `
-const StarWrapper = styled.span`
-  font-weight: 300;
-  line-height: 5px;
 
-  & > p {
-    display: inline;
-    font-size: 17px;
-    margin-left: 3px;
-  }
-
-  & > span {
-    color: orange;
-    font-weight: bold;
-    padding-top: 50px;
-    font-size: 20px;
-  }
-`
 const PostCard = () => {
+  const { mainPosts } = useSelector(state => state.post)
+
   return (
     <>
-      {dummyData.map((data, index) => (
+      {mainPosts.slice(0, 6).map((data, index) => (
         <PostCardWrapper key={index}>
-          <img src={data.urls} alt="" />
+          <img src={data.image_url} alt="" />
           <div>
-            <h3>
-              {data.title}
-              <StarWrapper>
-                <span>🟊</span>
-                <p>{data.rating}</p>
-              </StarWrapper>
-            </h3>
-
+            <h3>{data.title}</h3>
             <h5>
-              {data.category} | {data.category}
+              {data.author} | {data.category}
             </h5>
           </div>
         </PostCardWrapper>

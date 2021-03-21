@@ -8,6 +8,7 @@ import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
 import wrapper from '../store/configureStore'
 import axios from 'axios'
 import { END } from 'redux-saga'
+import { LOAD_POSTS_REQUEST } from '../reducers/post'
 
 const HomeWrapper = styled.div`
   background-color: white;
@@ -44,15 +45,14 @@ const RankWrapper = styled.div`
   border-left: 1px solid #ffd5b4;
 `
 
-const Home = () => {
+const Home = ({ data }) => {
   return (
     <HomeWrapper>
       <AppLayout>
         <Slider />
 
-        {/* Todo: 바꿔야됨 */}
         <HomeTitleWrapper>
-          <div>리뷰목록 </div>
+          <div>최신 리뷰목록 </div>
           <div>인기 리뷰목록</div>
         </HomeTitleWrapper>
 
@@ -62,7 +62,7 @@ const Home = () => {
           </PostCardWrapper>
 
           <RankWrapper>
-            <Rank />
+            <Rank likeCount={data} />
           </RankWrapper>
         </HomeMidWrapper>
       </AppLayout>
@@ -82,11 +82,17 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   context.store.dispatch({
     type: LOAD_MY_INFO_REQUEST,
   })
+  context.store.dispatch({
+    type: LOAD_POSTS_REQUEST,
+  })
 
   // END: request가 success로 바뀔떄까지 기다려준다 .
   context.store.dispatch(END)
-  // console.log('getServerSideProps end')
   await context.store.sagaTask.toPromise()
+
+  const getLikeCount = await axios.get('http://localhost:3065/posts/likecount')
+  const { data } = getLikeCount
+  return { props: { data } }
 })
 
 export default Home

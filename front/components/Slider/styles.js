@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const SlideContainer = styled.div`
   background-color: #faf4f2;
-  height: 50vh;
+  height: 350px;
   width: 900px;
   position: relative;
   margin: auto;
@@ -18,16 +18,18 @@ export const SlideActive = styled.div`
 
 export const SlideInfo = styled.div`
   display: flex;
-  height: 50vh;
+  height: 350px;
   width: 680px;
+  padding: 20px;
 
   & > img {
     cursor: pointer;
     flex: 0 0 40%;
     object-fit: fill;
-    height: 320px;
+    height: 280px;
     margin: 10px 10px 10px 10px;
-    width: 300px;
+
+    width: 260px;
     border: 1px solid #d9d9d9;
     border-radius: 5px;
   }

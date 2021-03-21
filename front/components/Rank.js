@@ -47,24 +47,27 @@ const RankText = styled.span`
     font-size: 15px;
     color: black;
     margin-bottom: 3px;
+    width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   :hover {
     text-decoration: underline solid black;
   }
 `
-const Rank = () => {
+const Rank = ({ likeCount }) => {
   return (
     <>
-      {dummyData.map((data, index) => (
+      {likeCount.slice(0, 6).map((data, index) => (
         <RankWrapper key={index}>
           <div>{index + 1}</div>
-
           <RankText>
             <div>{data.title} </div>
             <span>🟊</span>
-            {data.rating} | 좋아요 {data.like}개 | {data.category}
+            {data.rating} | 좋아요 {data.LikeCount}개 | {data.category}
           </RankText>
-          <img src={data.urls} alt="" />
+          <img src={data.image_url} alt={data.title} />
         </RankWrapper>
       ))}
     </>

@@ -1,5 +1,5 @@
 const express = require('express')
-const { Post, User, Comment } = require('../models')
+const { Post, User, Comment, Sequelize } = require('../models')
 const { Op } = require('sequelize')
 
 const router = express.Router()
@@ -41,6 +41,38 @@ router.get('/', async (req, res, next) => {
       ],
     })
     res.status(200).json(posts)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+router.get('/likecount', async (req, res, next) => {
+  // GET /posts
+  try {
+    const prePost = await Post.findAll({
+      group: ['id'],
+      attributes: [
+        'UserId',
+        [Sequelize.literal('count(*)'), 'LikeCount'],
+        'title',
+        'content',
+        'rating',
+        'category',
+        'image_url',
+      ],
+      order: [[Sequelize.literal('LikeCount'), 'DESC']],
+      include: [
+        {
+          required: true,
+          model: User,
+          as: 'Likers',
+          attributes: ['id'],
+        },
+      ],
+    })
+
+    res.status(200).json(prePost)
   } catch (error) {
     console.error(error)
     next(error)

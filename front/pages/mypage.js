@@ -1,30 +1,28 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import AppLayout from '../components/Layout/AppLayout'
-import Router from 'next/router'
 import Head from 'next/head'
 import Mypage from '../components/Mypage/Mypage'
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
 import wrapper from '../store/configureStore'
 import axios from 'axios'
 import { END } from 'redux-saga'
+import styled from 'styled-components'
+
+const MyPageWrapper = styled.div`
+  background-color: white;
+`
 
 const mypage = () => {
-  const { me } = useSelector(state => state.user)
-
-  useEffect(() => {
-    if (me === null) {
-      Router.replace('/')
-    }
-  }, [me])
-
   return (
-    <AppLayout>
-      <Head>
-        <title>리더스 마이페이지</title>
-      </Head>
-      <Mypage />
-    </AppLayout>
+    <MyPageWrapper>
+      <AppLayout>
+        <Head>
+          <title>리더스 마이페이지</title>
+        </Head>
+        <Mypage />
+      </AppLayout>
+    </MyPageWrapper>
   )
 }
 
