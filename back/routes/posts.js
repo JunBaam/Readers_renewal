@@ -47,6 +47,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// 좋아요 갯수
 router.get('/likecount', async (req, res, next) => {
   // GET /posts
   try {
@@ -73,6 +74,19 @@ router.get('/likecount', async (req, res, next) => {
     })
 
     res.status(200).json(prePost)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+})
+
+// 좋아요 게시글만 불러오기
+router.get('/likereview', async (req, res, next) => {
+  try {
+    const like = await Post.findAll({
+      include: [{ model: User, as: 'Likers', where: { id: req.user.id } }],
+    })
+    res.status(200).json(like)
   } catch (error) {
     console.error(error)
     next(error)

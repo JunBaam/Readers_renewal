@@ -4,7 +4,7 @@ export const MypageWrapper = styled.div`
   width: 900px;
   border-radius: 10px;
   margin: 10px auto;
-  background-color: white;
+  margin-bottom: 50px;
 
   & > p {
     font-size: 21px;
@@ -82,4 +82,7 @@ export const ReviewContent = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #a19f9e;
+`
+export const MypageTabWrapper = styled.div`
+  background-color: black;
 `

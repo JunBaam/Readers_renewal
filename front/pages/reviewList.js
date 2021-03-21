@@ -71,7 +71,6 @@ const reviewList = () => {
         <div>
           <span>{mainPosts.length}</span>개의 리뷰가 있습니다.
         </div>
-        <div>인기순</div>
       </ReviewListHeader>
 
       <ReviewListWrapper>
