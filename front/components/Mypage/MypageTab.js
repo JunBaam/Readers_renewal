@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import styles from './MypageTabs.module.css'
+import { MypageTabWrapper } from './mypageStyles'
 
 const MypageTab = ({ children }) => {
   const [activeTab, setActiveTab] = useState(children[0].props.label)

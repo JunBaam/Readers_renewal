@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import AppLayout from '../components/Layout/AppLayout'
 import Head from 'next/head'
 import Mypage from '../components/Mypage/Mypage'
@@ -9,20 +8,14 @@ import axios from 'axios'
 import { END } from 'redux-saga'
 import styled from 'styled-components'
 
-const MyPageWrapper = styled.div`
-  background-color: white;
-`
-
-const mypage = () => {
+const mypage = data => {
   return (
-    <MyPageWrapper>
-      <AppLayout>
-        <Head>
-          <title>리더스 마이페이지</title>
-        </Head>
-        <Mypage />
-      </AppLayout>
-    </MyPageWrapper>
+    <AppLayout>
+      <Head>
+        <title>리더스 마이페이지</title>
+      </Head>
+      <Mypage likeReview={data} />
+    </AppLayout>
   )
 }
 
@@ -37,6 +30,12 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   })
   context.store.dispatch(END)
   await context.store.sagaTask.toPromise()
+
+  const getLikeReview = await axios.get(
+    'http://localhost:3065/posts/likereview'
+  )
+  const { data } = getLikeReview
+  return { props: { data } }
 })
 
 export default mypage

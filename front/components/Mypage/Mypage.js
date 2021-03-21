@@ -11,7 +11,7 @@ import {
 } from './mypageStyles'
 import Router from 'next/router'
 
-const Mypage = () => {
+const Mypage = ({ likeReview }) => {
   const dispatch = useDispatch()
   const { me } = useSelector(state => state.user)
 
@@ -52,11 +52,31 @@ const Mypage = () => {
                   <ReviewContent>
                     {post.author} | {post.publisher} | {post.category}
                   </ReviewContent>
+                  {post.Likers}
                 </ReviewTab>
               ))
             : ''}
         </div>
-        <div label="좋아요리뷰목록">좋아요리뷰목록</div>
+
+        <div label="좋아요리뷰목록">
+          {likeReview.data.map(post => (
+            <ReviewTab key={post.id}>
+              <img
+                src={!post.image_url ? '../no_image.jpg' : post.image_url}
+                alt={post.title}
+              />
+              <ReviewTitle>
+                <h4> {post.title}</h4>
+                <p>
+                  🟊<span>{post.rating}</span>
+                </p>
+              </ReviewTitle>
+              <ReviewContent>
+                {post.author} | {post.publisher} | {post.category}
+              </ReviewContent>
+            </ReviewTab>
+          ))}
+        </div>
       </MypageTab>
     </MypageWrapper>
   )
