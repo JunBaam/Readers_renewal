@@ -6,14 +6,6 @@ import AppLayout from '../components/Layout/AppLayout'
 import { useSelector } from 'react-redux'
 
 const login = () => {
-  const { isLoggedIn } = useSelector(state => state.user)
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      Router.replace('/')
-    }
-  }, [isLoggedIn])
-
   return (
     <AppLayout>
       <Head>

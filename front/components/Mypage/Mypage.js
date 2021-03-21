@@ -1,30 +1,29 @@
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import React, { useCallback, useEffect } from 'react'
 import MypageTab from './MypageTab'
 import Button from '../Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutRequestAction } from '../../reducers/user'
+import {
+  MypageWrapper,
+  ReviewTab,
+  ReviewTitle,
+  ReviewContent,
+} from './mypageStyles'
+import Router from 'next/router'
 
-const MypageWrapper = styled.div`
-  width: 900px;
-  border-radius: 10px;
-  margin: 10px auto;
-  & > p {
-    font-size: 21px;
-    color: #a19f9e;
-    padding-bottom: 20px;
-  }
-  & > p span {
-    margin-left: 25px;
-  }
-`
 const Mypage = () => {
   const dispatch = useDispatch()
   const { me } = useSelector(state => state.user)
+
   const onLogOut = useCallback(() => {
-    console.log('버튼눌러짐')
     dispatch(logoutRequestAction())
   }, [])
+
+  useEffect(() => {
+    if (me === null) {
+      Router.replace('/')
+    }
+  }, [me])
 
   return (
     <MypageWrapper>
@@ -36,7 +35,27 @@ const Mypage = () => {
       </p>
 
       <MypageTab>
-        <div label="작성리뷰목록">작성리뷰목록</div>
+        <div label="작성리뷰목록">
+          {me
+            ? me.Posts.map(post => (
+                <ReviewTab key={post.id}>
+                  <img
+                    src={!post.image_url ? '../no_image.jpg' : post.image_url}
+                    alt={post.title}
+                  />
+                  <ReviewTitle>
+                    <h4> {post.title}</h4>
+                    <p>
+                      🟊<span>{post.rating}</span>
+                    </p>
+                  </ReviewTitle>
+                  <ReviewContent>
+                    {post.author} | {post.publisher} | {post.category}
+                  </ReviewContent>
+                </ReviewTab>
+              ))
+            : ''}
+        </div>
         <div label="좋아요리뷰목록">좋아요리뷰목록</div>
       </MypageTab>
     </MypageWrapper>
