@@ -53,7 +53,6 @@ const SignupForm = () => {
         type: SIGN_UP_REQUEST,
         data: { email, nickname, password },
       })
-      console.log(email, nickname, password)
     },
     [password, passwordCheck]
   )

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Kakao } from '../../components/BookSearch/kakaoRequest'
 import AppLayout from '../../components/Layout/AppLayout'
 import styled from 'styled-components'
@@ -14,10 +14,6 @@ const ReveiwWriteWrapper = styled.div`
 `
 
 const Search = ({ result }) => {
-  useEffect(() => {
-    console.log('getServerSideProps', result)
-  }, [])
-
   return (
     <AppLayout>
       <ReveiwWriteWrapper>

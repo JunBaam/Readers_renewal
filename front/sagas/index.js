@@ -5,7 +5,7 @@ import axios from 'axios'
 
 // 쿠키를 전송
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:3065'
+axios.defaults.baseURL = process.env.BASE_URL
 
 export default function* rootSaga() {
   yield all([fork(postSaga), fork(userSaga)])

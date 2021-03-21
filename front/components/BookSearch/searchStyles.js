@@ -44,18 +44,19 @@ export const SearchResult = styled.div`
 
 // SearchItem
 export const SearchResultCard = styled.div`
-  max-width: 230px;
-  min-width: 230px;
+  max-width: 240px;
+  min-width: 240px;
   display: inline-block;
   border-radius: 10px;
   text-align: center;
   border: 0.5px solid #edebe8;
   margin: 10px 20px;
+  padding-bottom: 10px;
 
   & > img {
     padding: 5px 5px;
     width: 130px;
-    height: 185px;
+    height: 175px;
   }
 
   & > div {
@@ -78,5 +79,6 @@ export const SearchResultCard = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding-bottom: 5px;
   }
 `

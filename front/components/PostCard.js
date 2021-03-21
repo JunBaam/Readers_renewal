@@ -50,15 +50,17 @@ const PostCard = () => {
   return (
     <>
       {mainPosts.slice(0, 6).map((data, index) => (
-        <PostCardWrapper key={index}>
-          <img src={data.image_url} alt="" />
-          <div>
-            <h3>{data.title}</h3>
-            <h5>
-              {data.author} | {data.category}
-            </h5>
-          </div>
-        </PostCardWrapper>
+        <Link href="/review/[id]" as={`/review/${data.id}`}>
+          <PostCardWrapper key={index}>
+            <img src={data.image_url} alt="" />
+            <div>
+              <h3>{data.title}</h3>
+              <h5>
+                {data.author} | {data.category}
+              </h5>
+            </div>
+          </PostCardWrapper>
+        </Link>
       ))}
 
       <Link href="/reviewList">

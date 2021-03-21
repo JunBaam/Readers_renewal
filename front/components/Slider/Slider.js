@@ -3,7 +3,6 @@ import sliderData from './sliderData'
 import Arrows from './Arrows'
 import SliderContent from './SliderContent'
 import Number from './Number'
-
 import { SlideContainer } from './styles'
 
 const Slider = () => {
@@ -20,7 +19,6 @@ const Slider = () => {
   return (
     <SlideContainer>
       <SliderContent activeIndex={activeIndex} />
-
       <Arrows
         prevSlide={() =>
           setActiveIndex(activeIndex < 1 ? len : activeIndex - 1)

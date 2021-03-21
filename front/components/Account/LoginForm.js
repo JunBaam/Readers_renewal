@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Button from '../Button'
 import { FormWrapper, InputWarrper } from './accountStyles'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,12 +11,11 @@ const LoginForm = () => {
   const [email, onChangeEmail] = useInput('')
   const [password, onChangePassword] = useInput('')
 
-  const { logInError, me, loginDone } = useSelector(state => state.user)
+  const { logInError, me } = useSelector(state => state.user)
 
   const onSubmitForm = useCallback(
     e => {
       e.preventDefault()
-      console.log(email, password)
       dispatch(loginRequestAction({ email, password }))
     },
     [email, password]

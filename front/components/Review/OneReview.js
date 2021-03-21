@@ -128,16 +128,28 @@ const OneReview = post => {
 
             <span>{timeForToday(post.createdAt)}</span>
           </UserReviewContent>
-          <HeartIcon>
-            {liked ? (
-              <AiTwotoneHeart color="orangered" key="like" onClick={onUnLike} />
-            ) : (
-              <AiOutlineHeart key="unlike" onClick={onLike} />
-            )}
-          </HeartIcon>
-          <ReplyIcon>
-            <AiOutlineMessage onClick={onToggleComment} />
-          </ReplyIcon>
+
+          {id ? (
+            <>
+              <HeartIcon>
+                {liked ? (
+                  <AiTwotoneHeart
+                    color="orangered"
+                    key="like"
+                    onClick={onUnLike}
+                  />
+                ) : (
+                  <AiOutlineHeart key="unlike" onClick={onLike} />
+                )}
+              </HeartIcon>
+              <ReplyIcon>
+                <AiOutlineMessage onClick={onToggleComment} />
+              </ReplyIcon>
+            </>
+          ) : (
+            ''
+          )}
+
           {id && post.user.id === id ? (
             <EllipsisIcon>
               <AiOutlineEllipsis

@@ -70,7 +70,7 @@ const Home = ({ data }) => {
   )
 }
 export const getServerSideProps = wrapper.getServerSideProps(async context => {
-  console.log('getServerSideProsps', context)
+  // console.log('getServerSideProsps', context)
 
   // 쿠키전달 , 쿠키 공유 방지.
   // 쿠키를 안쓰고 요청보낼때는 서버에서 공유하는 쿠키를 제거한다.
@@ -90,7 +90,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   context.store.dispatch(END)
   await context.store.sagaTask.toPromise()
 
-  const getLikeCount = await axios.get('http://localhost:3065/posts/likecount')
+  const getLikeCount = await axios.get(
+    `${process.env.BASE_URL}/posts/likecount`
+  )
   const { data } = getLikeCount
   return { props: { data } }
 })

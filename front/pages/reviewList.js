@@ -36,9 +36,9 @@ const reviewList = () => {
   )
 
   if (!mainPosts && !hasMorePosts) {
-    console.log('없다')
     return null
   }
+
   useEffect(() => {
     function onScroll() {
       if (

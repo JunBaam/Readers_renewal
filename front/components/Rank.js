@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import dummyData from './Slider/sliderData'
+import Link from 'next/link'
 
 const RankWrapper = styled.div`
   display: flex;
@@ -60,15 +60,17 @@ const Rank = ({ likeCount }) => {
   return (
     <>
       {likeCount.slice(0, 6).map((data, index) => (
-        <RankWrapper key={index}>
-          <div>{index + 1}</div>
-          <RankText>
-            <div>{data.title} </div>
-            <span>🟊</span>
-            {data.rating} | 좋아요 {data.LikeCount}개 | {data.category}
-          </RankText>
-          <img src={data.image_url} alt={data.title} />
-        </RankWrapper>
+        <Link href="/review/[id]" as={`/review/${data.id}`}>
+          <RankWrapper key={index}>
+            <div>{index + 1}</div>
+            <RankText>
+              <div>{data.title} </div>
+              <span>🟊</span>
+              {data.rating} | 좋아요 {data.LikeCount}개 | {data.category}
+            </RankText>
+            <img src={data.image_url} alt={data.title} />
+          </RankWrapper>
+        </Link>
       ))}
     </>
   )

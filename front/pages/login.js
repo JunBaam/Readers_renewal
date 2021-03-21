@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Router from 'next/router'
 import Head from 'next/head'
 import Account from '../components/Account/Account'
 import AppLayout from '../components/Layout/AppLayout'
-import { useSelector } from 'react-redux'
 
 const login = () => {
   return (

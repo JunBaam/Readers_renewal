@@ -14,8 +14,8 @@ const SliderContent = props => {
             <img src={slide.urls} alt="image_slider" />
             <SlideText>
               <h2>{slide.title}</h2>
-              <h5 category>{slide.category}</h5>
-              <div contents>{slide.contents}</div>
+              <h5>{slide.category}</h5>
+              <div>{slide.contents}</div>
             </SlideText>
           </SlideInfo>
         </SlideActive>

@@ -10,6 +10,7 @@ import {
   ReviewContent,
 } from './mypageStyles'
 import Router from 'next/router'
+import Link from 'next/link'
 
 const Mypage = ({ likeReview }) => {
   const dispatch = useDispatch()
@@ -38,43 +39,47 @@ const Mypage = ({ likeReview }) => {
         <div label="작성리뷰목록">
           {me
             ? me.Posts.map(post => (
-                <ReviewTab key={post.id}>
-                  <img
-                    src={!post.image_url ? '../no_image.jpg' : post.image_url}
-                    alt={post.title}
-                  />
-                  <ReviewTitle>
-                    <h4> {post.title}</h4>
-                    <p>
-                      🟊<span>{post.rating}</span>
-                    </p>
-                  </ReviewTitle>
-                  <ReviewContent>
-                    {post.author} | {post.publisher} | {post.category}
-                  </ReviewContent>
-                  {post.Likers}
-                </ReviewTab>
+                <Link href="/review/[id]" as={`/review/${post.id}`}>
+                  <ReviewTab key={post.id}>
+                    <img
+                      src={!post.image_url ? '../no_image.jpg' : post.image_url}
+                      alt={post.title}
+                    />
+                    <ReviewTitle>
+                      <h4> {post.title}</h4>
+                      <p>
+                        🟊<span>{post.rating}</span>
+                      </p>
+                    </ReviewTitle>
+                    <ReviewContent>
+                      {post.author} | {post.publisher} | {post.category}
+                    </ReviewContent>
+                    {post.Likers}
+                  </ReviewTab>
+                </Link>
               ))
             : ''}
         </div>
 
         <div label="좋아요리뷰목록">
           {likeReview.data.map(post => (
-            <ReviewTab key={post.id}>
-              <img
-                src={!post.image_url ? '../no_image.jpg' : post.image_url}
-                alt={post.title}
-              />
-              <ReviewTitle>
-                <h4> {post.title}</h4>
-                <p>
-                  🟊<span>{post.rating}</span>
-                </p>
-              </ReviewTitle>
-              <ReviewContent>
-                {post.author} | {post.publisher} | {post.category}
-              </ReviewContent>
-            </ReviewTab>
+            <Link href="/review/[id]" as={`/review/${post.id}`}>
+              <ReviewTab key={post.id}>
+                <img
+                  src={!post.image_url ? '../no_image.jpg' : post.image_url}
+                  alt={post.title}
+                />
+                <ReviewTitle>
+                  <h4> {post.title}</h4>
+                  <p>
+                    🟊<span>{post.rating}</span>
+                  </p>
+                </ReviewTitle>
+                <ReviewContent>
+                  {post.author} | {post.publisher} | {post.category}
+                </ReviewContent>
+              </ReviewTab>
+            </Link>
           ))}
         </div>
       </MypageTab>
