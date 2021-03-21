@@ -82,7 +82,6 @@ const reducer = (state = initialState, action) => {
       case ADD_POST_SUCCESS:
         draft.addPostLoading = false
         draft.addPostDone = true
-        console.log('addPost ', action.data)
         draft.mainPosts.unshift(action.data)
         break
 
@@ -120,8 +119,6 @@ const reducer = (state = initialState, action) => {
         draft.onePost.content = action.data.content
         draft.onePost.category = action.data.category
         draft.onePost.rating = action.data.rating
-        console.log('리듀서값', action.data)
-
         break
 
       case UPDATE_POST_FAILURE:
@@ -138,7 +135,7 @@ const reducer = (state = initialState, action) => {
         draft.loadPostsLoading = false
         draft.loadPostsDone = true
         draft.mainPosts = draft.mainPosts.concat(action.data)
-        draft.hasMorePosts = action.data.length === 10
+        draft.hasMorePosts = action.data.length === 9
         break
       case LOAD_POSTS_FAILURE:
         draft.loadPostsLoading = false

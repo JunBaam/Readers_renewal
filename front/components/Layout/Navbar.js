@@ -9,7 +9,7 @@ const NavLayout = styled.div`
   justify-content: space-evenly;
   cursor: pointer;
   background-color: white;
-  padding: 0 15% 0 15%;
+  padding: 0 20% 0 15%;
 
   & > img {
     width: 210px;

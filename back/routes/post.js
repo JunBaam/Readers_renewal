@@ -120,7 +120,7 @@ router.patch('/:postId', async (req, res, next) => {
       }
     )
     res.status(200).json({
-      PostId: parseInt(req.params.postId, 10),
+      PostId: parseInt(req.params.postId),
       content: req.body.content,
     })
   } catch (error) {

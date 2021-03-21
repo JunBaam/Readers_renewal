@@ -57,7 +57,6 @@ const ReviewWriteForm = props => {
     setRating(value)
   })
   const activeBtn = useCallback(index => {
-    console.log(category.objects[index])
     setCategory({ ...category, activeObject: category.objects[index] })
   })
 

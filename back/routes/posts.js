@@ -8,13 +8,13 @@ router.get('/', async (req, res, next) => {
   try {
     const where = {}
     // 초기 로딩이 아닐 때
-    if (parseInt(req.query.lastId, 10)) {
+    if (parseInt(req.query.lastId)) {
       // [Op.lt] : lastId보다 낮은 번호들을 불러온다.
-      where.id = { [Op.lt]: parseInt(req.query.lastId, 10) }
+      where.id = { [Op.lt]: parseInt(req.query.lastId) }
     }
     const posts = await Post.findAll({
       where, // 초기로딩
-      limit: 10,
+      limit: 9,
       order: [
         ['createdAt', 'DESC'], //게시글생성일
         [Comment, 'createdAt', 'DESC'], // 댓글생성일
@@ -61,6 +61,7 @@ router.get('/likecount', async (req, res, next) => {
         'rating',
         'category',
         'image_url',
+        'id',
       ],
       order: [[Sequelize.literal('LikeCount'), 'DESC']],
       include: [

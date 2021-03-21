@@ -2,8 +2,11 @@ import React from 'react'
 import Button from '../Button'
 import Link from 'next/link'
 import { SearchResultCard } from './searchStyles'
+import { useSelector } from 'react-redux'
 
 const SearchItem = props => {
+  const { me } = useSelector(state => state.user)
+
   return (
     <SearchResultCard>
       <img
@@ -20,11 +23,15 @@ const SearchItem = props => {
       {/* 
       href : 페이지의 경로
       as : 브라우저 URL   */}
-      <Link href="/search/[isbn]" as={`/search/${props.isbn}`}>
-        <a>
-          <Button size="mid">더보기 / 리뷰작성</Button>
-        </a>
-      </Link>
+      {me ? (
+        <Link href="/search/[isbn]" as={`/search/${props.isbn}`}>
+          <a>
+            <Button size="mid">더보기 / 리뷰작성</Button>
+          </a>
+        </Link>
+      ) : (
+        ''
+      )}
     </SearchResultCard>
   )
 }

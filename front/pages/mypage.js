@@ -6,7 +6,6 @@ import { LOAD_MY_INFO_REQUEST } from '../reducers/user'
 import wrapper from '../store/configureStore'
 import axios from 'axios'
 import { END } from 'redux-saga'
-import styled from 'styled-components'
 
 const mypage = data => {
   return (
@@ -32,7 +31,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   await context.store.sagaTask.toPromise()
 
   const getLikeReview = await axios.get(
-    'http://localhost:3065/posts/likereview'
+    `${process.env.BASE_URL}/posts/likereview`
   )
   const { data } = getLikeReview
   return { props: { data } }
