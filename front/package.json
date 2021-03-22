@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "build": "nex build"
+    "build": "next build"
   },
   "author": "JunBeom",
   "license": "ISC",
