@@ -7,6 +7,8 @@ const morgan = require('morgan')
 const db = require('./models')
 const passport = require('passport')
 const passportConfig = require('./passport')
+const hpp = require('hpp')
+const helmet = require('helmet')
 
 const postsRouter = require('./routes/posts')
 const postRouter = require('./routes/post')
@@ -24,10 +26,18 @@ db.sequelize
 
 // passport를 app.js와 연결
 passportConfig()
-app.use(morgan('dev'))
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(morgan('combined'))
+  app.use(hpp())
+  app.use(helmet())
+} else {
+  app.use(morgan('dev'))
+}
+
 app.use(
   cors({
-    origin: true,
+    origin: ['http://localhost:3000', 'http://3.36.197.161:3000'],
     credentials: true,
   })
 )
