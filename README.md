@@ -2,10 +2,9 @@
 # 링크 http://3.36.197.161/
 
 ## 개발 기간  <br>
--약 20일 
+-약 20일 <br>
 기존 프로젝트(https://github.com/fkdlsl9088/Readers) 변경 <br>
-react.js/django/contextApi/css <br>
-next.js/ndoe(express)/redux/ styled-component <br>
+react.js/django/contextApi/css ==> next.js/ndoe(express)/redux/ styled-component <br>
 -Front / Back (100% 개인작) <br>
 
 <h2> 개발 환경 </h2>
@@ -27,12 +26,12 @@ next.js/ndoe(express)/redux/ styled-component <br>
 
 ## 구현 <br>
 Frontend: 
-라이브러리없이 모든 컴포넌트 직접구현 (Slider ,Tab ,Rating ..)
-redux 상태관리 및, redux-saga 비동기 호출 
-Next.js  ServerSideRendering
-Backend:
-passport 로그인
-sequelize 사용
+라이브러리없이 모든 컴포넌트 직접구현 (Slider ,Tab ,Rating ..) <br>
+redux 상태관리 및, redux-saga 비동기 호출 <br>
+Next.js  ServerSideRendering    <br>
+Backend:   <br>
+passport 로그인 <br>
+sequelize 사용<br>
 mysql 
 
 [구현한 기능]
