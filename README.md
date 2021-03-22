@@ -4,7 +4,7 @@
 ## 개발 기간  <br>
 -약 20일 <br>
 기존 프로젝트(https://github.com/fkdlsl9088/Readers) 변경 <br>
-react.js/django/contextApi/css ==> next.js/ndoe(express)/redux/ styled-component <br>
+react.js/django/contextApi/css  ==> next.js/node(express)/redux/styled-component <br>
 -Front / Back (100% 개인작) <br>
 
 <h2> 개발 환경 </h2>
