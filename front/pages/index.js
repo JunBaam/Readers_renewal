@@ -9,6 +9,7 @@ import wrapper from '../store/configureStore'
 import axios from 'axios'
 import { END } from 'redux-saga'
 import { LOAD_POSTS_REQUEST } from '../reducers/post'
+import { backUrl } from '../config/config'
 
 const HomeWrapper = styled.div`
   background-color: white;
@@ -90,9 +91,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async context => {
   context.store.dispatch(END)
   await context.store.sagaTask.toPromise()
 
-  const getLikeCount = await axios.get(
-    `${process.env.BASE_URL}/posts/likecount`
-  )
+  const getLikeCount = await axios.get(`${backUrl}/posts/likecount`)
   const { data } = getLikeCount
   return { props: { data } }
 })

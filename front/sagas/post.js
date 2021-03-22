@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { all, fork, put, takeLatest, call, throttle } from 'redux-saga/effects'
+import { all, fork, put, takeLatest, call } from 'redux-saga/effects'
 
 import {
   ADD_POST_FAILURE,
@@ -254,7 +254,8 @@ function* watchUpdatePost() {
   yield takeLatest(UPDATE_POST_REQUEST, updatePost)
 }
 function* watchLoadPosts() {
-  yield throttle(4000, LOAD_POSTS_REQUEST, loadPosts)
+  // yield throttle(4000, LOAD_POSTS_REQUEST, loadPosts)
+  yield takeLatest(LOAD_POSTS_REQUEST, loadPosts)
 }
 
 function* watchLoadPost() {
